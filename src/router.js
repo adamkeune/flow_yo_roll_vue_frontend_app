@@ -5,6 +5,8 @@ import Signup from "./views/Signup.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import Frontpage from "./views/Frontpage.vue";
+import TechniquesIndex from "./views/TechniquesIndex.vue";
+import VideosIndex from "./views/VideosIndex.vue";
 
 Vue.use(Router);
 
@@ -45,6 +47,16 @@ export default new Router({
       path: "/frontpage",
       name: "frontpage",
       component: Frontpage
+    },
+    {
+      path: "/techniques",
+      name: "techniques",
+      component: TechniquesIndex
+    },
+    {
+      path: "/videos",
+      name: "videos",
+      component: VideosIndex
     }
   ]
 });
