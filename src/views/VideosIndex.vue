@@ -4,10 +4,14 @@
     <div v-for="video in videos">
       <h3>{{ video.title }}</h3>
       <a :href="video.url" target="_blank">Link to video</a>
+      <!-- add modal view -->
     </div>
-    <router-link to="/frontpage">Back to Front Page</router-link>
-    |
-    <router-link to="/logout">Logout</router-link>
+    <div v-if="videos.length === 0">No videos, brah?! Add one here...</div>
+    <div>
+      <router-link to="/frontpage">Back to Front Page</router-link>
+      |
+      <router-link to="/logout">Logout</router-link>
+    </div>
   </div>
 </template>
 

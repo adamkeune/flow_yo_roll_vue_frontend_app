@@ -6,9 +6,11 @@
       <p>{{ technique.description }}</p>
       <!-- change to button for modal show view -->
     </div>
-    <router-link to="/frontpage">Back to Front Page</router-link>
-    |
-    <router-link to="/logout">Logout</router-link>
+    <div>
+      <router-link to="/frontpage">Back to Front Page</router-link>
+      |
+      <router-link to="/logout">Logout</router-link>
+    </div>
   </div>
 </template>
 
