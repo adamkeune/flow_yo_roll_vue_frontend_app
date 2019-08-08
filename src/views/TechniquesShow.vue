@@ -1,0 +1,111 @@
+<template>
+  <div class="container">
+    <h1>{{ technique.name }}</h1>
+    <p>{{ technique.description }}</p>
+    <video
+      v-if="technique.videos[0] !== undefined"
+      :src="technique.videos[0].url"
+      alt=""
+      height="400"
+      width="400"
+      controls
+    ></video>
+    <!-- F-ing CORS, switch to backend request -->
+    <div>
+      <span>Priority: {{ technique.priority }}</span>
+      |
+      <span>Source: {{ technique.source }}</span>
+      |
+      <span>Type: {{ technique.type.name }}</span>
+    </div>
+    <router-link to="/techniques">Back to Index</router-link>
+    <!-- Link to EDIT through modal HERE -->
+    <h3>Edit Technique</h3>
+    <ul>
+      <li class="text-danger" v-for="error in errors">{{ error }}</li>
+    </ul>
+    <form v-on:submit.prevent="updateTechnique()">
+      <div>
+        <label for="name">Name:</label>
+        <input v-model="updatedName" type="text" />
+      </div>
+      <div>
+        <label for="description">Description:</label>
+        <textarea v-model="updatedDescription" rows="10" cols="30"></textarea>
+      </div>
+      <div>
+        <label for="source">Source:</label>
+        <input v-model="updatedSource" type="text" />
+      </div>
+      <div>
+        <label for="type">Type:</label>
+        <select v-model="updatedType">
+          <option value="1">Position</option>
+          <option value="2">Transition</option>
+          <option value="3">Submission</option>
+        </select>
+      </div>
+      <div>
+        <label for="priority">Priority:</label>
+        <input v-model="updatedPriority" type="number" min="1" max="5" />
+      </div>
+      <input type="submit" value="Update" />
+    </form>
+    <button v-on:click="deleteTechnique()">Delete Technique</button>
+  </div>
+</template>
+
+<style></style>
+
+<script>
+import axios from "axios";
+
+export default {
+  data: function() {
+    return {
+      technique: {},
+      updatedName: "",
+      updatedDescription: "",
+      updatedSource: "",
+      updatedPriority: 1,
+      updatedType: 1,
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get(`api/techniques/${this.$route.params.id}`).then(response => {
+      console.log(response.data);
+      this.technique = response.data;
+    });
+  },
+  methods: {
+    updateTechnique: function() {
+      let params = {
+        name: this.updatedName,
+        description: this.description,
+        priority: this.updatedPriority,
+        source: this.updatedSource,
+        type_id: this.updatedType
+      };
+      axios
+        .patch(`/api/techniques/${this.$route.params.id}`, params)
+        .then(response => {
+          console.log(response.data);
+          this.technique = response.data;
+          this.updatedName = "";
+          this.updatedDescription = "";
+          this.updatedSource = "";
+          this.updatedPriority = 1;
+          this.updatedType = 1;
+        })
+        .catch(error => (this.errors = error.response.data.errors));
+    },
+    deleteTechnique: function() {
+      axios.delete(`api/techniques/${this.$route.params.id}`).then(response => {
+        console.log(response.data);
+        this.$router.push("/techniques");
+      });
+    }
+  }
+};
+</script>

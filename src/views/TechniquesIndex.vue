@@ -7,6 +7,8 @@
       <!-- change to button for modal show view -->
     </div>
     <div>
+      <router-link to="/techniques-new">Create New Technique</router-link>
+      |
       <router-link to="/frontpage">Back to Front Page</router-link>
       |
       <router-link to="/logout">Logout</router-link>
