@@ -2,8 +2,10 @@
   <div class="container">
     <h1>My Techniques</h1>
     <div v-for="technique in techniques">
-      <h3>{{ technique.name }}</h3>
-      <p>{{ technique.description }}</p>
+      <router-link :to="`/techniques/${technique.id}`">
+        <h3>{{ technique.name }}</h3>
+      </router-link>
+      <!-- <p>{{ technique.description }}</p> -->
       <!-- change to button for modal show view -->
     </div>
     <div>

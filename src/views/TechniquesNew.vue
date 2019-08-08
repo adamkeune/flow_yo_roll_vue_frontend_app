@@ -52,7 +52,7 @@ export default {
       source: "",
       type: 1,
       priority: "",
-      video: "",
+      video: this.$route.query.url || "",
       errors: []
     };
   },

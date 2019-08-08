@@ -4,6 +4,11 @@
     <div v-for="video in videos">
       <h3>{{ video.title }}</h3>
       <a :href="video.url" target="_blank">Link to video</a>
+      <div v-if="!video.technique">
+        <router-link :to="`/techniques-new?url=${video.url}`">
+          Add this technique to your list...
+        </router-link>
+      </div>
       <button v-on:click="deleteVideo(video)">Delete Video</button>
       <!-- add modal view -->
     </div>
