@@ -15,6 +15,9 @@
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
     ></iframe>
+    <div v-else="">
+      Link a video to this technique...
+    </div>
     <div>
       <span>Priority: {{ technique.priority }}</span>
       |

@@ -13,24 +13,10 @@
       <!-- add modal view -->
     </div>
     <div v-if="videos.length === 0">No videos, brah?! Add one here...</div>
+
     <div>
-      <h3>Add Video</h3>
-      <ul>
-        <li v-for="error in errors" class="text-danger">{{ error }}</li>
-      </ul>
-      <form v-on:submit.prevent="createVideo()">
-        <div>
-          <label for="title">Title:</label>
-          <input v-model="title" type="text" />
-        </div>
-        <div>
-          <label for="url">Url:</label>
-          <input v-model="url" type="text" />
-        </div>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
-    <div>
+      <router-link to="/videos-new">Add a Video</router-link>
+      |
       <router-link to="/frontpage">Back to Front Page</router-link>
       |
       <router-link to="/logout">Logout</router-link>
@@ -62,23 +48,10 @@ export default {
     deleteVideo: function(video) {
       axios.delete(`api/videos/${video.id}`).then(response => {
         console.log(response.data);
-        this.$router.push("/videos");
+        let index = this.videos.indexOf(video);
+        this.videos.splice(index, 1);
+        // this.$router.push("/videos");
       });
-    },
-    createVideo: function() {
-      let params = {
-        title: this.title,
-        url: this.url
-      };
-      axios
-        .post("api/videos", params)
-        .then(response => {
-          console.log(response.data);
-          this.videos.push(response.data);
-          this.title = "";
-          this.url = "";
-        })
-        .catch(error => (this.errors = error.response.data.errors));
     }
   }
 };

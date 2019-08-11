@@ -34,8 +34,8 @@
         <input v-model="video" type="text" />
       </div>
       <input type="submit" value="Create" />
-      <router-link to="/techniques">Cancel</router-link>
     </form>
+    <router-link to="/techniques">Cancel</router-link>
   </div>
 </template>
 

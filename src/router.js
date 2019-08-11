@@ -9,6 +9,7 @@ import TechniquesIndex from "./views/TechniquesIndex.vue";
 import TechniquesShow from "./views/TechniquesShow.vue";
 import TechniquesNew from "./views/TechniquesNew.vue";
 import VideosIndex from "./views/VideosIndex.vue";
+import VideosCreate from "./views/VideosCreate.vue";
 
 Vue.use(Router);
 
@@ -69,6 +70,11 @@ export default new Router({
       path: "/videos",
       name: "videos",
       component: VideosIndex
+    },
+    {
+      path: "/videos-new",
+      name: "videos-new",
+      component: VideosCreate
     }
   ]
 });
