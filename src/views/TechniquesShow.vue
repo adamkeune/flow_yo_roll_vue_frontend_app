@@ -2,15 +2,19 @@
   <div class="container">
     <h1>{{ technique.name }}</h1>
     <p>{{ technique.description }}</p>
-    <video
+    <iframe
       v-if="technique.videos[0] !== undefined"
-      :src="technique.videos[0].url"
-      alt=""
-      height="400"
-      width="400"
-      controls
-    ></video>
-    <!-- F-ing CORS, switch to backend request -->
+      width="560"
+      height="315"
+      :src="
+        `https://www.youtube.com/embed/${
+          technique.videos[0].url.split('v=')[1]
+        }`
+      "
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
     <div>
       <span>Priority: {{ technique.priority }}</span>
       |
@@ -63,7 +67,7 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      technique: {},
+      technique: { videos: [{ url: "" }], type: {} },
       updatedName: "",
       updatedDescription: "",
       updatedSource: "",
