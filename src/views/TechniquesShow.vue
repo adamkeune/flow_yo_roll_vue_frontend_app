@@ -16,7 +16,9 @@
       allowfullscreen
     ></iframe>
     <div v-else="">
-      Link a video to this technique...
+      <router-link to="/videos-new">
+        Link a video to this technique...
+      </router-link>
     </div>
     <div>
       <span>Priority: {{ technique.priority }}</span>
@@ -24,6 +26,12 @@
       <span>Source: {{ technique.source }}</span>
       |
       <span>Type: {{ technique.type.name }}</span>
+    </div>
+    <div>
+      <span>Last practiced:</span>
+      <span>{{ lastPractice }}</span>
+      |
+      <button v-on:click="createPractice()">Add Practice</button>
     </div>
     <router-link to="/techniques">Back to Index</router-link>
     <!-- Link to EDIT through modal HERE -->
@@ -70,12 +78,17 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      technique: { videos: [{ url: "" }], type: {} },
+      technique: {
+        videos: [{ url: "" }],
+        type: {},
+        practices: [{ formatted: [] }]
+      },
       updatedName: "",
       updatedDescription: "",
       updatedSource: "",
       updatedPriority: 1,
       updatedType: 1,
+      lastPractice: "",
       errors: []
     };
   },
@@ -83,6 +96,9 @@ export default {
     axios.get(`api/techniques/${this.$route.params.id}`).then(response => {
       console.log(response.data);
       this.technique = response.data;
+      let last = this.technique.practices.length - 1;
+      this.lastPractice = this.technique.practices[last].created_at;
+      // figure out why this isn't receiving "friendly_created_at" to start
     });
   },
   methods: {
@@ -112,6 +128,18 @@ export default {
         console.log(response.data);
         this.$router.push("/techniques");
       });
+    },
+    createPractice: function() {
+      let params = {
+        technique_id: this.technique.id
+      };
+      axios
+        .post("api/practices", params)
+        .then(response => {
+          console.log(response.data);
+          this.lastPractice = response.data.friendly_created_at;
+        })
+        .catch(error => (this.errors = error.response.data.errors));
     }
   }
 };
