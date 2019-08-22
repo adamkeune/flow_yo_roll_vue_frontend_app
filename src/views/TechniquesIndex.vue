@@ -5,7 +5,6 @@
       <router-link :to="`/techniques/${technique.id}`">
         <h3>{{ technique.name }}</h3>
       </router-link>
-      <!-- <p>{{ technique.description }}</p> -->
       <!-- change to button for modal show view -->
     </div>
     <div>
