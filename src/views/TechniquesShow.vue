@@ -81,7 +81,7 @@ export default {
       technique: {
         videos: [{ url: "" }],
         type: {},
-        practices: [{ formatted: [] }]
+        practices: [{ formatted: {} }]
       },
       updatedName: "",
       updatedDescription: "",
@@ -97,8 +97,7 @@ export default {
       console.log(response.data);
       this.technique = response.data;
       let last = this.technique.practices.length - 1;
-      this.lastPractice = this.technique.practices[last].created_at;
-      // figure out why this isn't receiving "friendly_created_at" to start
+      this.lastPractice = this.technique.practices[last].friendly_created_at;
     });
   },
   methods: {
