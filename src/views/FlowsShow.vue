@@ -1,10 +1,13 @@
 <template>
   <div>
     <h1>{{ flow.title }}</h1>
+    <p>{{ flow.description }}</p>
     <ul>
       <li v-for="technique in flow.techniques">{{ technique.name }}</li>
     </ul>
     <button v-on:click="addTechnique()">Add Technique to Flow</button>
+    <button v-on:click="deleteTechnique()">Remove Technique from Flow</button>
+    <button v-on:click="deleteFlow()">Delete this Flow</button>
     <div>
       <router-link to="/flows">Back to My Flows</router-link>
       |
@@ -32,6 +35,16 @@ export default {
         this.flow = response.data;
       })
       .catch(error => (this.errors = error.response.data.errors));
+  },
+  methods: {
+    addTechnique: function() {},
+    deleteTechnique: function() {},
+    deleteFlow: function() {
+      axios.delete(`api/flows/${this.$route.params.id}`).then(response => {
+        console.log(response.data);
+        this.$router.push("/flows");
+      });
+    }
   }
 };
 </script>

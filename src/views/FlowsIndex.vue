@@ -8,7 +8,7 @@
     </div>
 
     <div>
-      <button v-on:click="addFlow()">Add New Flow</button>
+      <router-link to="/flows-new">Add a New Flow</router-link>
       |
       <router-link to="/frontpage">Back to Front Page</router-link>
       |
@@ -24,6 +24,8 @@ export default {
   data: function() {
     return {
       flows: [],
+      title: "",
+      description: "",
       errors: []
     };
   },
@@ -35,6 +37,7 @@ export default {
         this.flows = response.data;
       })
       .catch(error => (this.errors = error.response.data.errors));
-  }
+  },
+  methods: {}
 };
 </script>
