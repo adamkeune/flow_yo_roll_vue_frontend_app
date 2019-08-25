@@ -11,7 +11,6 @@ import VideosIndex from "./views/VideosIndex.vue";
 import VideosCreate from "./views/VideosCreate.vue";
 import FlowsIndex from "./views/FlowsIndex.vue";
 import FlowsShow from "./views/FlowsShow.vue";
-import FlowsNew from "./views/FlowsNew.vue";
 
 Vue.use(Router);
 
@@ -82,11 +81,6 @@ export default new Router({
       path: "/flows/:id",
       name: "flows-show",
       component: FlowsShow
-    },
-    {
-      path: "/flows-new",
-      name: "flows-new",
-      component: FlowsNew
     }
   ]
 });

@@ -45,7 +45,7 @@
         Back to Index
       </button>
     </router-link>
-
+    |
     <button
       type="button"
       class="btn btn-primary"
@@ -54,6 +54,7 @@
     >
       Update Technique
     </button>
+    |
     <button
       v-on:click="deleteTechnique()"
       type="button"

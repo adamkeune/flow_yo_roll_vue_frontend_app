@@ -8,12 +8,74 @@
     </div>
 
     <div>
-      <router-link to="/flows-new">Add a New Flow</router-link>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#new"
+      >
+        Add Flow
+      </button>
       |
-      <router-link to="/frontpage">Back to Front Page</router-link>
+      <router-link to="/frontpage">
+        <button type="button" class="btn btn-primary">
+          Back to Front Page
+        </button>
+      </router-link>
       |
-      <router-link to="/logout">Logout</router-link>
+      <router-link to="/logout">
+        <button type="button" class="btn btn-primary">Logout</button>
+      </router-link>
     </div>
+    <div id="new" class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">New Flow</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h1>Add a Flow</h1>
+            <ul>
+              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+            </ul>
+            <form v-on:submit.prevent="addFlow()">
+              <div>
+                <label for="name">Title:</label>
+                <input v-model="title" type="text" />
+              </div>
+              <div>
+                <label for="description">Description:</label>
+                <textarea v-model="description" rows="10" cols="30"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Cancel
+            </button>
+            <button
+              v-on:click="addFlow()"
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
   </div>
 </template>
 
@@ -38,6 +100,22 @@ export default {
       })
       .catch(error => (this.errors = error.response.data.errors));
   },
-  methods: {}
+  methods: {
+    addFlow: function() {
+      let params = {
+        title: this.title,
+        description: this.description
+      };
+      axios
+        .post("/api/flows", params)
+        .then(response => {
+          console.log(response.data);
+          this.flows.push(response.data);
+          this.title = "";
+          this.description = "";
+        })
+        .catch(error => (this.errors = error.response.data.errors));
+    }
+  }
 };
 </script>
