@@ -2,8 +2,8 @@
   <div>
     <h1>My Flows</h1>
     <div v-for="flow in flows">
-      <router-link :to="`/flows/${flow.id}`">
-        <h3>{{ flow.title }}</h3>
+      <router-link :to="`/flows/${flow.id}`" class="list-group">
+        <h3 class="list-group-item">{{ flow.title }}</h3>
       </router-link>
     </div>
 

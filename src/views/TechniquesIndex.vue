@@ -2,8 +2,8 @@
   <div class="container">
     <h1>My Techniques</h1>
     <div v-for="technique in techniques">
-      <router-link :to="`/techniques/${technique.id}`">
-        <h3>{{ technique.name }}</h3>
+      <router-link :to="`/techniques/${technique.id}`" class="list-group">
+        <h3 class="list-group-item">{{ technique.name }}</h3>
       </router-link>
     </div>
     <div>
