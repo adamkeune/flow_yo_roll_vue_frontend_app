@@ -22,11 +22,10 @@
       >
         Delete Video
       </button>
-      <!-- add modal view -->
     </div>
     <div v-if="videos.length === 0">No videos, brah?! Add one here...</div>
 
-    <div>
+    <div class="mt-3">
       <button
         type="button"
         class="btn btn-primary"

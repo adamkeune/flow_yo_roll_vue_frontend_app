@@ -9,7 +9,7 @@
     <button v-on:click="deleteTechnique()">Remove Technique from Flow</button>
     <button v-on:click="deleteFlow()">Delete this Flow</button>
     <button v-on:click="getAll()">Get All</button>
-    <div>
+    <div class="mt-3">
       <router-link to="/flows">Back to My Flows</router-link>
       |
       <router-link to="/frontpage">Back to Front Page</router-link>

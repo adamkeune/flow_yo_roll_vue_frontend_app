@@ -7,7 +7,7 @@
       </router-link>
     </div>
 
-    <div>
+    <div class="mt-3">
       <button
         type="button"
         class="btn btn-primary"

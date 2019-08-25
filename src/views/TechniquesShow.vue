@@ -20,14 +20,14 @@
         Link a video to this technique...
       </router-link>
     </div>
-    <div>
+    <div class="mt-2">
       <span>Priority: {{ technique.priority }}</span>
       |
       <span>Source: {{ technique.source }}</span>
       |
       <span>Type: {{ technique.type.name }}</span>
     </div>
-    <div>
+    <div class="mt-2">
       <span>Last practiced:</span>
       <span>{{ lastPractice }}</span>
       |
@@ -40,28 +40,30 @@
       </button>
     </div>
 
-    <router-link to="/techniques">
-      <button type="button" class="btn btn-primary">
-        Back to Index
+    <div class="mt-3">
+      <router-link to="/techniques">
+        <button type="button" class="btn btn-primary">
+          Back to Index
+        </button>
+      </router-link>
+      |
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#edit"
+      >
+        Update Technique
       </button>
-    </router-link>
-    |
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#edit"
-    >
-      Update Technique
-    </button>
-    |
-    <button
-      v-on:click="deleteTechnique()"
-      type="button"
-      class="btn btn-primary"
-    >
-      Delete Technique
-    </button>
+      |
+      <button
+        v-on:click="deleteTechnique()"
+        type="button"
+        class="btn btn-primary"
+      >
+        Delete Technique
+      </button>
+    </div>
 
     <div id="edit" class="modal fade">
       <div class="modal-dialog" role="document">
@@ -124,6 +126,9 @@
             </form>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Cancel
+            </button>
             <button
               v-on:click="updateTechnique()"
               type="button"
