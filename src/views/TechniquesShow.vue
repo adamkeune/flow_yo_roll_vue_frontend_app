@@ -33,17 +33,28 @@
       |
       <button v-on:click="createPractice()">Add Practice</button>
     </div>
-    <router-link to="/techniques">Back to Index</router-link>
-    <!-- Link to EDIT through modal HERE -->
+
+    <router-link to="/techniques">
+      <button type="button" class="btn btn-primary">
+        Back to Index
+      </button>
+    </router-link>
+
     <button
       type="button"
-      class="btn btn-primary btn-lg"
+      class="btn btn-primary"
       data-toggle="modal"
       data-target="#edit"
     >
-      Launch demo modal
+      Update Technique
     </button>
-    <button v-on:click="deleteTechnique()">Delete Technique</button>
+    <button
+      v-on:click="deleteTechnique()"
+      type="button"
+      class="btn btn-primary"
+    >
+      Delete Technique
+    </button>
 
     <div id="edit" class="modal fade">
       <div class="modal-dialog" role="document">
@@ -63,7 +74,7 @@
             <ul>
               <li class="text-danger" v-for="error in errors">{{ error }}</li>
             </ul>
-            <form v-on:submit.prevent="updateTechnique()">
+            <form>
               <div>
                 <label for="name">Name:</label>
                 <input v-model="updatedName" type="text" />
@@ -97,18 +108,17 @@
                   max="5"
                 />
               </div>
-              <input type="submit" value="Update" />
             </form>
           </div>
           <div class="modal-footer">
             <button
+              v-on:click="updateTechnique()"
               type="button"
-              class="btn btn-secondary"
+              class="btn btn-primary"
               data-dismiss="modal"
             >
-              Close
+              Save changes
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
         <!-- /.modal-content -->
