@@ -35,38 +35,87 @@
     </div>
     <router-link to="/techniques">Back to Index</router-link>
     <!-- Link to EDIT through modal HERE -->
-    <h3>Edit Technique</h3>
-    <ul>
-      <li class="text-danger" v-for="error in errors">{{ error }}</li>
-    </ul>
-    <form v-on:submit.prevent="updateTechnique()">
-      <div>
-        <label for="name">Name:</label>
-        <input v-model="updatedName" type="text" />
-      </div>
-      <div>
-        <label for="description">Description:</label>
-        <textarea v-model="updatedDescription" rows="10" cols="30"></textarea>
-      </div>
-      <div>
-        <label for="source">Source:</label>
-        <input v-model="updatedSource" type="text" />
-      </div>
-      <div>
-        <label for="type">Type:</label>
-        <select v-model="updatedType">
-          <option value="1">Position</option>
-          <option value="2">Transition</option>
-          <option value="3">Submission</option>
-        </select>
-      </div>
-      <div>
-        <label for="priority">Priority:</label>
-        <input v-model="updatedPriority" type="number" min="1" max="5" />
-      </div>
-      <input type="submit" value="Update" />
-    </form>
+    <button
+      type="button"
+      class="btn btn-primary btn-lg"
+      data-toggle="modal"
+      data-target="#edit"
+    >
+      Launch demo modal
+    </button>
     <button v-on:click="deleteTechnique()">Delete Technique</button>
+
+    <div id="edit" class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Technique</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+            </ul>
+            <form v-on:submit.prevent="updateTechnique()">
+              <div>
+                <label for="name">Name:</label>
+                <input v-model="updatedName" type="text" />
+              </div>
+              <div>
+                <label for="description">Description:</label>
+                <textarea
+                  v-model="updatedDescription"
+                  rows="10"
+                  cols="30"
+                ></textarea>
+              </div>
+              <div>
+                <label for="source">Source:</label>
+                <input v-model="updatedSource" type="text" />
+              </div>
+              <div>
+                <label for="type">Type:</label>
+                <select v-model="updatedType">
+                  <option value="1">Position</option>
+                  <option value="2">Transition</option>
+                  <option value="3">Submission</option>
+                </select>
+              </div>
+              <div>
+                <label for="priority">Priority:</label>
+                <input
+                  v-model="updatedPriority"
+                  type="number"
+                  min="1"
+                  max="5"
+                />
+              </div>
+              <input type="submit" value="Update" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
   </div>
 </template>
 
