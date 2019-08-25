@@ -13,6 +13,7 @@
         <textarea v-model="description" rows="10" cols="30"></textarea>
       </div>
       <input type="submit" value="Create" />
+      <router-link to="/flows">Cancel</router-link>
     </form>
   </div>
 </template>
