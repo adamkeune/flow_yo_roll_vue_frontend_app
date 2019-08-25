@@ -31,7 +31,13 @@
       <span>Last practiced:</span>
       <span>{{ lastPractice }}</span>
       |
-      <button v-on:click="createPractice()">Add Practice</button>
+      <button
+        v-on:click="createPractice()"
+        type="button"
+        class="btn btn-secondary"
+      >
+        Add Practice
+      </button>
     </div>
 
     <router-link to="/techniques">
