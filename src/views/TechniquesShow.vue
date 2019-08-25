@@ -82,33 +82,39 @@
               <li class="text-danger" v-for="error in errors">{{ error }}</li>
             </ul>
             <form>
-              <div>
+              <div class="form-group">
                 <label for="name">Name:</label>
-                <input v-model="updatedName" type="text" />
+                <input class="form-control" v-model="updatedName" type="text" />
               </div>
-              <div>
+              <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea
+                  class="form-control"
                   v-model="updatedDescription"
                   rows="10"
                   cols="30"
                 ></textarea>
               </div>
-              <div>
+              <div class="form-group">
                 <label for="source">Source:</label>
-                <input v-model="updatedSource" type="text" />
+                <input
+                  class="form-control"
+                  v-model="updatedSource"
+                  type="text"
+                />
               </div>
-              <div>
+              <div class="form-group">
                 <label for="type">Type:</label>
-                <select v-model="updatedType">
+                <select class="form-control" v-model="updatedType">
                   <option value="1">Position</option>
                   <option value="2">Transition</option>
                   <option value="3">Submission</option>
                 </select>
               </div>
-              <div>
+              <div class="form-group">
                 <label for="priority">Priority:</label>
                 <input
+                  class="form-control"
                   v-model="updatedPriority"
                   type="number"
                   min="1"
@@ -139,6 +145,8 @@
 <style></style>
 
 <script>
+/* global setupTheme */
+
 import axios from "axios";
 
 export default {
@@ -165,6 +173,9 @@ export default {
       let last = this.technique.practices.length - 1;
       this.lastPractice = this.technique.practices[last].friendly_created_at;
     });
+  },
+  mounted: function() {
+    setupTheme();
   },
   methods: {
     updateTechnique: function() {

@@ -1,3 +1,5 @@
+// prettier-ignore
+function setupTheme() {
 /********************************************************
  *
  * Custom Javascript code for AppStrap Bootstrap theme
@@ -3416,3 +3418,6 @@ $(document).ready(function() {
   // Init theme functions
   $(document).themeInit();
 });
+}
+
+setupTheme();

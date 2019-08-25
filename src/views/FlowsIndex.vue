@@ -51,14 +51,19 @@
             <ul>
               <li class="text-danger" v-for="error in errors">{{ error }}</li>
             </ul>
-            <form v-on:submit.prevent="addFlow()">
-              <div>
+            <form>
+              <div class="form-group">
                 <label for="name">Title:</label>
-                <input v-model="title" type="text" />
+                <input class="form-control" v-model="title" type="text" />
               </div>
-              <div>
+              <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea v-model="description" rows="10" cols="30"></textarea>
+                <textarea
+                  class="form-control"
+                  v-model="description"
+                  rows="10"
+                  cols="30"
+                ></textarea>
               </div>
             </form>
           </div>
@@ -72,7 +77,7 @@
               class="btn btn-primary"
               data-dismiss="modal"
             >
-              Save changes
+              Add Flow
             </button>
           </div>
         </div>
@@ -85,6 +90,7 @@
 </template>
 
 <script>
+/* global setupTheme */
 import axios from "axios";
 
 export default {
@@ -104,6 +110,9 @@ export default {
         this.flows = response.data;
       })
       .catch(error => (this.errors = error.response.data.errors));
+  },
+  mounted: function() {
+    setupTheme();
   },
   methods: {
     addFlow: function() {

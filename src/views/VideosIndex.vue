@@ -72,13 +72,13 @@
               <li v-for="error in errors" class="text-danger">{{ error }}</li>
             </ul>
             <form>
-              <div>
+              <div class="form-group">
                 <label for="title">Title:</label>
-                <input v-model="title" type="text" />
+                <input class="form-control" v-model="title" type="text" />
               </div>
-              <div>
+              <div class="form-group">
                 <label for="url">Url:</label>
-                <input v-model="url" type="text" />
+                <input class="form-control" v-model="url" type="text" />
               </div>
             </form>
           </div>
@@ -107,6 +107,7 @@
 <style></style>
 
 <script>
+/* global setupTheme */
 import axios from "axios";
 
 export default {
@@ -123,6 +124,9 @@ export default {
       console.log(response.data);
       this.videos = response.data;
     });
+  },
+  mounted: function() {
+    setupTheme();
   },
   methods: {
     createVideo: function() {

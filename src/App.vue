@@ -55,7 +55,7 @@
             <div class="header-brand">
               <a class="header-brand-text" href="index.html" title="Home">
                 <h1 class="h2">
-                  <span class="header-brand-text-alt">App</span>Strap<span class="header-brand-text-alt">.</span>
+                  <span class="header-brand-text-alt">FlowYo</span>Roll<span class="header-brand-text-alt">.</span>
                 </h1>
               </a>
               <div class="header-divider d-none d-lg-block"></div>

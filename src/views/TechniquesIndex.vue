@@ -51,33 +51,44 @@
               <li class="text-danger" v-for="error in errors">{{ error }}</li>
             </ul>
             <form>
-              <div>
+              <div class="form-group">
                 <label for="name">Name:</label>
-                <input v-model="name" type="text" />
+                <input class="form-control" v-model="name" type="text" />
               </div>
-              <div>
+              <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea v-model="description" rows="10" cols="30"></textarea>
+                <textarea
+                  class="form-control"
+                  v-model="description"
+                  rows="10"
+                  cols="30"
+                ></textarea>
               </div>
-              <div>
+              <div class="form-group">
                 <label for="source">Source:</label>
-                <input v-model="source" type="text" />
+                <input class="form-control" v-model="source" type="text" />
               </div>
-              <div>
+              <div class="form-group">
                 <label for="type">Type:</label>
-                <select v-model="type">
+                <select class="form-control" v-model="type">
                   <option value="1">Position</option>
                   <option value="2">Transition</option>
                   <option value="3">Submission</option>
                 </select>
               </div>
-              <div>
+              <div class="form-group">
                 <label for="priority">Priority:</label>
-                <input v-model="priority" type="number" min="1" max="5" />
+                <input
+                  class="form-control"
+                  v-model="priority"
+                  type="number"
+                  min="1"
+                  max="5"
+                />
               </div>
-              <div>
+              <div class="form-group">
                 <label for="video">Video URL (optional):</label>
-                <input v-model="video" type="text" />
+                <input class="form-control" v-model="video" type="text" />
               </div>
             </form>
           </div>
@@ -106,6 +117,7 @@
 <style></style>
 
 <script>
+/* global setupTheme */
 import axios from "axios";
 
 export default {
@@ -126,6 +138,9 @@ export default {
       console.log(response.data);
       this.techniques = response.data;
     });
+  },
+  mounted: function() {
+    setupTheme();
   },
   methods: {
     createTechnique: function() {
