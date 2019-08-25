@@ -27,7 +27,12 @@
         <button type="button" class="btn btn-primary">Logout</button>
       </router-link>
     </div>
-    <div id="new" class="modal fade">
+    <div
+      id="new"
+      class="modal"
+      data-modal-animate-in="slideInLeft"
+      data-modal-animate-out="slideOutLeft"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">

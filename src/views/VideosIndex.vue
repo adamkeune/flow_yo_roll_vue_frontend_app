@@ -8,7 +8,7 @@
       </a>
       <div v-if="!video.technique">
         <router-link
-          :to="`/techniques-new?url=${video.url}`"
+          :to="`/techniques?url=${video.url}`"
           class="list-group-item"
         >
           <!-- change this to reflect modal changes -->
@@ -27,9 +27,14 @@
     <div v-if="videos.length === 0">No videos, brah?! Add one here...</div>
 
     <div>
-      <router-link to="/videos-new">
-        <button type="button" class="btn btn-primary">Add a Video</button>
-      </router-link>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#new"
+      >
+        Add Video
+      </button>
       |
       <router-link to="/frontpage">
         <button type="button" class="btn btn-primary">
@@ -41,6 +46,61 @@
         <button type="button" class="btn btn-primary">Logout</button>
       </router-link>
     </div>
+
+    <div
+      id="new"
+      class="modal fade"
+      data-modal-animate-in="slideInLeft"
+      data-modal-animate-out="slideOutLeft"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">New Technique</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h1>Add Video</h1>
+            <ul>
+              <li v-for="error in errors" class="text-danger">{{ error }}</li>
+            </ul>
+            <form>
+              <div>
+                <label for="title">Title:</label>
+                <input v-model="title" type="text" />
+              </div>
+              <div>
+                <label for="url">Url:</label>
+                <input v-model="url" type="text" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Cancel
+            </button>
+            <button
+              v-on:click="createVideo()"
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
   </div>
 </template>
 
@@ -65,6 +125,21 @@ export default {
     });
   },
   methods: {
+    createVideo: function() {
+      let params = {
+        title: this.title,
+        url: this.url
+      };
+      axios
+        .post("api/videos", params)
+        .then(response => {
+          console.log(response.data);
+          this.title = "";
+          this.url = "";
+          this.videos.push(response.data);
+        })
+        .catch(error => (this.errors = error.response.data.errors));
+    },
     deleteVideo: function(video) {
       axios.delete(`api/videos/${video.id}`).then(response => {
         console.log(response.data);

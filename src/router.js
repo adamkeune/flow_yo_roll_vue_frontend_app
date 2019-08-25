@@ -8,7 +8,6 @@ import Frontpage from "./views/Frontpage.vue";
 import TechniquesIndex from "./views/TechniquesIndex.vue";
 import TechniquesShow from "./views/TechniquesShow.vue";
 import VideosIndex from "./views/VideosIndex.vue";
-import VideosCreate from "./views/VideosCreate.vue";
 import FlowsIndex from "./views/FlowsIndex.vue";
 import FlowsShow from "./views/FlowsShow.vue";
 
@@ -66,11 +65,6 @@ export default new Router({
       path: "/videos",
       name: "videos",
       component: VideosIndex
-    },
-    {
-      path: "/videos-new",
-      name: "videos-new",
-      component: VideosCreate
     },
     {
       path: "/flows",
