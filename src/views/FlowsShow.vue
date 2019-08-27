@@ -31,7 +31,7 @@
           <button>{{ transition.name }}</button>
         </li>
       </ul>
-      <ul v-else>
+      <ul v-else-if="this.action === 'delete'">
         <!-- change to a dropdown? -->
         <li v-for="technique in flow.techniques" v-on:click="submit(technique)">
           <button>{{ technique.name }}</button>
@@ -158,7 +158,7 @@ export default {
         technique_id: tech.id,
         flow_id: this.$route.params.id
       };
-      if (this.add) {
+      if (this.action === "addPosition" || this.action === "addTransition") {
         axios
           .post("/api/flow_techniques", params)
           .then(response => console.log(response.data))
