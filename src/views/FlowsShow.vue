@@ -5,7 +5,8 @@
     <ul>
       <li v-for="technique in flow.techniques">{{ technique.name }}</li>
     </ul>
-    <button v-on:click="addTechnique()">Add Technique to Flow</button>
+    <button v-on:click="addPosition()">Add Position/Submission to Flow</button>
+    <button v-on:click="addTransition()">Add Transition to Flow</button>
     <button v-on:click="deleteTechnique()">Remove Technique from Flow</button>
     <button v-on:click="deleteFlow()">Delete this Flow</button>
     <button v-on:click="getAll()">Get All</button>
@@ -18,10 +19,22 @@
     </div>
     <div v-if="edit">
       Techniques:
-      <ul>
+      <ul v-if="this.action === 'addPosition'">
         <!-- change to a dropdown? -->
-        <li v-for="technique in techniques" v-on:click="submit(technique)">
-          {{ technique.name }}
+        <li v-for="position in positions" v-on:click="submit(position)">
+          <button>{{ position.name }}</button>
+        </li>
+      </ul>
+      <ul v-else-if="this.action === 'addTransition'">
+        <!-- change to a dropdown? -->
+        <li v-for="transition in transitions" v-on:click="submit(transition)">
+          <button>{{ transition.name }}</button>
+        </li>
+      </ul>
+      <ul v-else>
+        <!-- change to a dropdown? -->
+        <li v-for="technique in flow.techniques" v-on:click="submit(technique)">
+          <button>{{ technique.name }}</button>
         </li>
       </ul>
     </div>
@@ -48,11 +61,65 @@ export default {
     return {
       flow: {},
       techniques: [],
+      positions: [],
+      transitions: [],
       edit: false,
-      add: true,
+      action: "",
       errors: [],
       elements: [],
-      style: []
+      style: [
+        // the stylesheet for the graph
+        {
+          selector: "node",
+          style: {
+            shape: "square",
+            width: "50",
+            height: "50",
+            "background-color": "#600",
+            "background-blacken": -0.5,
+            label: "data(name)",
+            "text-valign": "center"
+          }
+        },
+
+        {
+          selector: "edge",
+          style: {
+            width: 3,
+            "line-color": "#ccc",
+            "target-arrow-color": "#ccc",
+            "target-arrow-shape": "triangle",
+            "curve-style": "straight",
+            label: "data(name)"
+          }
+        }
+      ],
+      layout: {
+        name: "breadthfirst",
+
+        fit: true, // whether to fit the viewport to the graph
+        directed: true, // whether the tree is directed downwards (or edges can point in any direction if false)
+        padding: 30, // padding on fit
+        circle: false, // put depths in concentric circles if true, put depths top down if false
+        grid: true, // whether to create an even grid into which the DAG is placed (circle:false only)
+        spacingFactor: 1.75, // positive spacing factor, larger => more space between nodes (N.B. n/a if causes overlap)
+        boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+        avoidOverlap: true, // prevents node overlap, may overflow boundingBox if not enough space
+        nodeDimensionsIncludeLabels: false, // Excludes the label when calculating node bounding boxes for the layout algorithm
+        roots: undefined, // the roots of the trees
+        maximal: false, // whether to shift nodes down their natural BFS depths in order to avoid upwards edges (DAGS only)
+        animate: true, // whether to transition the node positions
+        animationDuration: 500, // duration of animation in ms if enabled
+        animationEasing: undefined, // easing of animation if enabled,
+        animateFilter: function(node, i) {
+          return true;
+        }, // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
+        ready: undefined, // callback on layoutready
+        stop: undefined, // callback on layoutstop
+        transform: function(node, position) {
+          return position;
+        } // transform a given node position. Useful for changing flow direction in discrete layouts
+      }
     };
   },
   created: function() {
@@ -63,19 +130,27 @@ export default {
         this.flow = response.data;
       })
       .catch(error => (this.errors = error.response.data.errors));
+    axios.get("/api/techniques").then(response => {
+      console.log(response.data);
+      this.techniques = response.data;
+    });
   },
   methods: {
-    addTechnique: function() {
-      axios.get("/api/techniques").then(response => {
-        console.log(response.data);
-        this.techniques = response.data;
-      });
-      this.add = true;
+    addPosition: function() {
+      // split into addPosition/Submission and addTransition
+      this.positions = this.techniques.filter(
+        tech => tech.type.id === 1 || tech.type.id === 3
+      );
+      this.action = "addPosition";
+      this.edit = !this.edit;
+    },
+    addTransition: function() {
+      this.transitions = this.techniques.filter(tech => tech.type.id === 2);
+      this.action = "addTransition";
       this.edit = !this.edit;
     },
     deleteTechnique: function() {
-      this.techniques = this.flow.techniques;
-      this.add = false;
+      this.action = "delete";
       this.edit = !this.edit;
     },
     submit: function(tech) {
@@ -111,66 +186,29 @@ export default {
     createChart: function() {
       var cy = cytoscape({
         container: document.getElementById("cy"),
-        elements: [
-          // loop through techniques to get this data
-          {
-            // node a
-            data: {
-              id: `${this.flow.techniques[0].id}`,
-              name: `${this.flow.techniques[0].name}`
-            },
-            position: { x: 100, y: 100 },
-            locked: true,
-            classes: [] // set CSS classes
-          },
-          {
-            // node b
-            data: {
-              id: `${this.flow.techniques[1].id}`,
-              name: `${this.flow.techniques[1].name}`
-            },
-            position: { x: 200, y: 100 },
-            locked: false,
-            classes: [] // set CSS classes
-          },
-          {
-            // edge ab
-            data: {
-              id: `${this.flow.techniques[0].id}${this.flow.techniques[1].id}`,
-              source: `${this.flow.techniques[0].id}`,
-              target: `${this.flow.techniques[1].id}`,
-              name: "first move"
-            }
+        elements: this.flow.techniques.map(tech => {
+          if (tech.type_id === 1 || tech.type_id === 3) {
+            return {
+              data: {
+                id: `${tech.id}`,
+                name: `${tech.name}`
+              },
+              locked: false,
+              classes: [] // set CSS classes
+            };
+          } else {
+            return {
+              data: {
+                id: `${tech.id}`,
+                source: `${this.flow.techniques[0]}`, // this doesn't work. Maybe add 'source' and
+                target: `${this.flow.techniques[1]}`, // 'target' columns to flow_technique model?
+                name: `${tech.name}`
+              }
+            };
           }
-        ],
-        style: [
-          // the stylesheet for the graph
-          {
-            selector: "node",
-            style: {
-              shape: "square",
-              width: "50",
-              height: "50",
-              "background-color": "#600",
-              "background-blacken": -0.5,
-              label: "data(name)",
-              "text-valign": "center"
-            }
-          },
-
-          {
-            selector: "edge",
-            style: {
-              width: 3,
-              "line-color": "#ccc",
-              "target-arrow-color": "#ccc",
-              "target-arrow-shape": "triangle",
-              "curve-style": "straight",
-              label: "data(name)"
-            }
-          }
-        ],
-        layout: { name: "preset" },
+        }),
+        style: this.style,
+        layout: this.layout,
         zoom: 1,
         minZoom: 0.5,
         maxZoom: 5

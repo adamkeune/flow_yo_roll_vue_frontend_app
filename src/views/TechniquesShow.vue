@@ -186,7 +186,7 @@ export default {
     updateTechnique: function() {
       let params = {
         name: this.updatedName,
-        description: this.description,
+        description: this.updatedDescription,
         priority: this.updatedPriority,
         source: this.updatedSource,
         type_id: this.updatedType
