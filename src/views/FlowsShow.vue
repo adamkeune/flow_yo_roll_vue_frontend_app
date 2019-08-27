@@ -10,29 +10,35 @@
     <button v-on:click="deleteTechnique()">Remove Technique from Flow</button>
     <button v-on:click="deleteFlow()">Delete this Flow</button>
     <button v-on:click="getAll()">Get All</button>
-    <div class="mt-3">
-      <router-link to="/flows">Back to My Flows</router-link>
-      |
-      <router-link to="/frontpage">Back to Front Page</router-link>
-      |
-      <router-link to="/logout">Logout</router-link>
-    </div>
     <div v-if="edit">
       Techniques:
+      <!-- <select v-if="this.action === 'addPosition'">
+        <option v-for="position in positions" :value="position">
+          {{ position.name }}
+        </option>
+      </select> -->
       <ul v-if="this.action === 'addPosition'">
-        <!-- change to a dropdown? -->
         <li v-for="position in positions" v-on:click="submit(position)">
           <button>{{ position.name }}</button>
         </li>
       </ul>
       <ul v-else-if="this.action === 'addTransition'">
-        <!-- change to a dropdown? -->
         <li v-for="transition in transitions" v-on:click="submit(transition)">
           <button>{{ transition.name }}</button>
+          <!-- TODO: gather source and target info here, then submit -->
+          <select v-model="this.source">
+            <option v-for="position in positions" :value="position">
+              {{ position.name }}
+            </option>
+          </select>
+          <select v-model="this.target">
+            <option v-for="position in positions" :value="position">
+              {{ position.name }}
+            </option>
+          </select>
         </li>
       </ul>
       <ul v-else-if="this.action === 'delete'">
-        <!-- change to a dropdown? -->
         <li v-for="technique in flow.techniques" v-on:click="submit(technique)">
           <button>{{ technique.name }}</button>
         </li>
@@ -40,6 +46,13 @@
     </div>
     <div><button v-on:click="createChart()">Map it out</button></div>
     <div id="cy"></div>
+    <div class="mt-3">
+      <router-link to="/flows">Back to My Flows</router-link>
+      |
+      <router-link to="/frontpage">Back to Front Page</router-link>
+      |
+      <router-link to="/logout">Logout</router-link>
+    </div>
   </div>
 </template>
 
@@ -63,6 +76,8 @@ export default {
       techniques: [],
       positions: [],
       transitions: [],
+      source: {},
+      target: {},
       edit: false,
       action: "",
       errors: [],
@@ -134,18 +149,17 @@ export default {
       console.log(response.data);
       this.techniques = response.data;
     });
+    this.positions = this.techniques.filter(
+      tech => tech.type.id === 1 || tech.type.id === 3
+    );
+    this.transitions = this.techniques.filter(tech => tech.type.id === 2);
   },
   methods: {
     addPosition: function() {
-      // split into addPosition/Submission and addTransition
-      this.positions = this.techniques.filter(
-        tech => tech.type.id === 1 || tech.type.id === 3
-      );
       this.action = "addPosition";
       this.edit = !this.edit;
     },
     addTransition: function() {
-      this.transitions = this.techniques.filter(tech => tech.type.id === 2);
       this.action = "addTransition";
       this.edit = !this.edit;
     },
@@ -158,12 +172,22 @@ export default {
         technique_id: tech.id,
         flow_id: this.$route.params.id
       };
-      if (this.action === "addPosition" || this.action === "addTransition") {
+      let postToDatabase = function(params) {
         axios
           .post("/api/flow_techniques", params)
           .then(response => console.log(response.data))
           .catch(error => (this.errors = error.response.data.errors));
+      };
+      if (this.action === "addPosition") {
+        postToDatabase(params);
         this.flow.techniques.push(tech);
+        this.positions.push(tech);
+      } else if (this.action === "addTransition") {
+        postToDatabase(params);
+        tech.source = {}; // add source and target objects here
+        tech.target = {};
+        this.flow.techniques.push(tech);
+        this.transitons.push(tech);
       } else {
         axios
           .delete(`/api/flow_techniques/${tech.id}`)
