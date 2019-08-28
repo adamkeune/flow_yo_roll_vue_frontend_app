@@ -27,13 +27,13 @@
           <div v-if="chosen === transition">
             <label for="source">Source:</label>
             <select v-model="source">
-              <option v-for="position in flow_techniques" :value="position">
+              <option v-for="position in positions" :value="position">
                 {{ position.name }}
               </option>
             </select>
             <label for="target">Target:</label>
             <select v-model="target">
-              <option v-for="position in flow_techniques" :value="position">
+              <option v-for="position in positions" :value="position">
                 {{ position.name }}
               </option>
             </select>
@@ -163,6 +163,7 @@ export default {
   },
   methods: {
     addPosition: function() {
+      //refactor???
       this.action = "addPosition";
       this.positions = this.techniques.filter(
         tech => tech.type.id === 1 || tech.type.id === 3
@@ -170,8 +171,9 @@ export default {
       this.edit = !this.edit;
     },
     addTransition: function() {
+      // refactor???
       this.action = "addTransition";
-      this.positions = this.techniques.filter(
+      this.positions = this.flow_techniques.filter(
         tech => tech.type.id === 1 || tech.type.id === 3
       );
       this.transitions = this.techniques.filter(tech => tech.type.id === 2);
