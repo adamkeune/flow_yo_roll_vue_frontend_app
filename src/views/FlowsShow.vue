@@ -3,13 +3,12 @@
     <h1>{{ flow.title }}</h1>
     <p>{{ flow.description }}</p>
     <ul>
-      <li v-for="technique in flow.techniques">{{ technique.name }}</li>
+      <li v-for="technique in flow_techniques">{{ technique.name }}</li>
     </ul>
     <button v-on:click="addPosition()">Add Position/Submission to Flow</button>
     <button v-on:click="addTransition()">Add Transition to Flow</button>
     <button v-on:click="deleteTechnique()">Remove Technique from Flow</button>
     <button v-on:click="deleteFlow()">Delete this Flow</button>
-    <button v-on:click="getAll()">Get All</button>
     <div v-if="edit">
       Techniques:
       <!-- <select v-if="this.action === 'addPosition'">
@@ -23,23 +22,27 @@
         </li>
       </ul>
       <ul v-else-if="this.action === 'addTransition'">
-        <li v-for="transition in transitions" v-on:click="submit(transition)">
-          <button>{{ transition.name }}</button>
-          <!-- TODO: gather source and target info here, then submit -->
-          <select v-model="this.source">
-            <option v-for="position in positions" :value="position">
-              {{ position.name }}
-            </option>
-          </select>
-          <select v-model="this.target">
-            <option v-for="position in positions" :value="position">
-              {{ position.name }}
-            </option>
-          </select>
+        <li v-for="transition in transitions" v-on:click="chosen = transition">
+          {{ transition.name }}
+          <div v-if="chosen === transition">
+            <label for="source">Source:</label>
+            <select v-model="source">
+              <option v-for="position in flow_techniques" :value="position">
+                {{ position.name }}
+              </option>
+            </select>
+            <label for="target">Target:</label>
+            <select v-model="target">
+              <option v-for="position in flow_techniques" :value="position">
+                {{ position.name }}
+              </option>
+            </select>
+            <button v-on:click="submit(transition)">Submit</button>
+          </div>
         </li>
       </ul>
       <ul v-else-if="this.action === 'delete'">
-        <li v-for="technique in flow.techniques" v-on:click="submit(technique)">
+        <li v-for="technique in flow_techniques" v-on:click="submit(technique)">
           <button>{{ technique.name }}</button>
         </li>
       </ul>
@@ -74,8 +77,10 @@ export default {
     return {
       flow: {},
       techniques: [],
+      flow_techniques: [],
       positions: [],
       transitions: [],
+      chosen: {},
       source: {},
       target: {},
       edit: false,
@@ -149,18 +154,27 @@ export default {
       console.log(response.data);
       this.techniques = response.data;
     });
-    this.positions = this.techniques.filter(
-      tech => tech.type.id === 1 || tech.type.id === 3
-    );
-    this.transitions = this.techniques.filter(tech => tech.type.id === 2);
+    axios
+      .get(`/api/flow_techniques?flow_id=${this.$route.params.id}`)
+      .then(response => {
+        console.log(response.data);
+        this.flow_techniques = response.data;
+      });
   },
   methods: {
     addPosition: function() {
       this.action = "addPosition";
+      this.positions = this.techniques.filter(
+        tech => tech.type.id === 1 || tech.type.id === 3
+      );
       this.edit = !this.edit;
     },
     addTransition: function() {
       this.action = "addTransition";
+      this.positions = this.techniques.filter(
+        tech => tech.type.id === 1 || tech.type.id === 3
+      );
+      this.transitions = this.techniques.filter(tech => tech.type.id === 2);
       this.edit = !this.edit;
     },
     deleteTechnique: function() {
@@ -170,31 +184,31 @@ export default {
     submit: function(tech) {
       let params = {
         technique_id: tech.id,
-        flow_id: this.$route.params.id
+        flow_id: this.$route.params.id,
+        source_position_id: this.source.id, // these need to change,
+        target_position_id: this.target.id // get IDs from flow_techniques
       };
-      let postToDatabase = function(params) {
+      let postToDatabase = params => {
         axios
           .post("/api/flow_techniques", params)
-          .then(response => console.log(response.data))
+          .then(response => {
+            console.log(response.data);
+            this.flow_techniques.push(response.data);
+          })
           .catch(error => (this.errors = error.response.data.errors));
       };
-      if (this.action === "addPosition") {
+      if (this.action === "addPosition" || this.action === "addTransition") {
         postToDatabase(params);
-        this.flow.techniques.push(tech);
-        this.positions.push(tech);
-      } else if (this.action === "addTransition") {
-        postToDatabase(params);
-        tech.source = {}; // add source and target objects here
-        tech.target = {};
-        this.flow.techniques.push(tech);
-        this.transitons.push(tech);
+        this.source = {};
+        this.target = {};
       } else {
         axios
           .delete(`/api/flow_techniques/${tech.id}`)
           .then(response => console.log(response.data));
-        let index = this.flow.techniques.indexOf(tech);
-        this.flow.techniques.splice(index, 1);
+        let index2 = this.flow_techniques.indexOf(tech);
+        this.flow_techniques.splice(index2, 1);
       }
+      this.edit = false;
     },
     deleteFlow: function() {
       axios.delete(`api/flows/${this.$route.params.id}`).then(response => {
@@ -202,31 +216,28 @@ export default {
         this.$router.push("/flows");
       });
     },
-    getAll: function() {
-      axios
-        .get("/api/flow_techniques?flow_id=10")
-        .then(response => console.log(response.data));
-    },
     createChart: function() {
       var cy = cytoscape({
         container: document.getElementById("cy"),
-        elements: this.flow.techniques.map(tech => {
-          if (tech.type_id === 1 || tech.type_id === 3) {
+        elements: this.flow_techniques.map(tech => {
+          if (tech.type.id === 1 || tech.type.id === 3) {
+            console.log(tech);
             return {
               data: {
-                id: `${tech.id}`,
-                name: `${tech.name}`
+                id: tech.id,
+                name: tech.name
               },
               locked: false,
               classes: [] // set CSS classes
             };
           } else {
+            console.log(tech);
             return {
               data: {
-                id: `${tech.id}`,
-                source: `${this.flow.techniques[0]}`, // this doesn't work. Maybe add 'source' and
-                target: `${this.flow.techniques[1]}`, // 'target' columns to flow_technique model?
-                name: `${tech.name}`
+                id: String(tech.id),
+                source: String(tech.source_position_id),
+                target: String(tech.target_position_id),
+                name: tech.name
               }
             };
           }
