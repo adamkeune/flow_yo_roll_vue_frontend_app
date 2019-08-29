@@ -69,6 +69,8 @@
 </style>
 
 <script>
+/* global setupTheme */
+
 import axios from "axios";
 import cytoscape from "cytoscape";
 
@@ -160,6 +162,9 @@ export default {
         console.log(response.data);
         this.flow_techniques = response.data;
       });
+  },
+  mounted: function() {
+    setupTheme();
   },
   methods: {
     addPosition: function() {

@@ -1,33 +1,93 @@
 <template>
   <div class="container home">
-    <div
-      class="p-4 py-lg-8 bg-grey-dark text-center overlay overlay-op-7"
-      id="jumbotron"
-      data-bg-img="/photos/jonathan-borba-jWYbjMfDvrI-unsplash.jpg"
-    >
-      <h2 class="text-uppercase font-weight-bold m-0 text-white">FlowYoRoll</h2>
+    <!-- ======== @Region: #highlighted ======== -->
+    <div id="highlighted" class="border-0">
+      <!-- Image Banner: Use the the data-bg-img functionality to create a simple image banner Use spacer classes to make the banner larger with padding, allows for easy responsive changes too see: elements-ctas.htm To make the banner full height add the attributes: data-toggle="full-height" data-offset="#header" -->
+      <div
+        class="bg-black overlay overlay-gradient-flip overlay-op-7 text-center"
+        data-toggle="backstretch"
+        data-backstretch-target="self"
+        data-backstretch-overlay="false"
+        data-backstretch-imgs="photos/jonathan-borba-jWYbjMfDvrI-unsplash.jpg, photos/rafaela-biazi-0mfj0jJt0dY-unsplash.jpg, photos/jonathan-borba-YcrcG17Kjmg-unsplash.jpg"
+      >
+        <div
+          data-toggle="full-height"
+          data-breakpoint="740"
+          data-scroll="scrollax"
+          class="px-3 py-5 py-lg-10 flex-valign"
+          data-animate="fadeIn"
+          data-animate-delay="0.2"
+        >
+          <h1 class="display-4 text-white text-slab mt-lg-5">
+            FlowYoRoll
+          </h1>
+          <h3 class="text-grey font-weight-normal text-slab">
+            Visualize Your Game
+          </h3>
+          <hr class="hr-white op-4 hr-lg w-20 mx-auto my-4" />
+          <div class="">
+            <router-link
+              to="/techniques"
+              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+              data-toggle="scroll-link"
+              data-animate="fadeIn"
+              data-animate-delay="0.45"
+            >
+              <h4>Techniques</h4>
+            </router-link>
+            <router-link
+              to="/videos"
+              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+              data-toggle="scroll-link"
+              data-animate="fadeIn"
+              data-animate-delay="0.45"
+            >
+              <h4>Videos</h4>
+            </router-link>
+            <router-link
+              to="/flows"
+              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+              data-toggle="scroll-link"
+              data-animate="fadeIn"
+              data-animate-delay="0.45"
+            >
+              <h4>Flows</h4>
+            </router-link>
+            <hr class="hr-white op-4 hr-lg w-20 mx-auto my-4" />
+            <router-link
+              to="/logout"
+              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+              data-toggle="scroll-link"
+              data-animate="fadeIn"
+              data-animate-delay="0.45"
+            >
+              <h4>Logout</h4>
+            </router-link>
+          </div>
+        </div>
+      </div>
     </div>
-    <h1>Welcome to FlowYoRoll</h1>
-    <router-link to="/techniques"><h3>My Techniques</h3></router-link>
-    <router-link to="/videos"><h3>My Videos</h3></router-link>
-    <router-link to="/flows"><h3>My Flows</h3></router-link>
-    <router-link to="/logout">Logout</router-link>
   </div>
 </template>
 
 <style>
-#jumbotron {
-  width: 100%;
-  height: auto;
+.btn {
+  width: 30%;
+  margin: 0 auto;
+  opacity: 0.6;
 }
 </style>
 
 <script>
+/* global setupTheme */
 import axios from "axios";
 
 export default {
   data: function() {
     return {};
+  },
+  mounted: function() {
+    setupTheme();
   }
 };
 </script>
