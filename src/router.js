@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
 import Signup from "./views/Signup.vue";
 import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
@@ -19,8 +18,13 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "frontpage",
+      component: Frontpage
+    },
+    {
+      path: "/frontpage",
+      name: "frontpage",
+      component: Frontpage
     },
     {
       path: "/about",
@@ -45,11 +49,6 @@ export default new Router({
       path: "/logout",
       name: "logout",
       component: Logout
-    },
-    {
-      path: "/frontpage",
-      name: "frontpage",
-      component: Frontpage
     },
     {
       path: "/techniques",
