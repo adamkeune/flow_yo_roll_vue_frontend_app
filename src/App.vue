@@ -24,14 +24,14 @@
 
               <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
               <a href="#top" class="btn btn-link btn-icon text-white ml-2 order-12" data-toggle="overlay" data-target="#overlay-menu" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
-              <a href="#join" data-toggle="scroll-link" class="btn btn-outline-light btn-rounded border-w-2 text-uppercase font-weight-bold px-4 d-none d-lg-inline-block">Join</a>
+              <!--<a href="#join" data-toggle="scroll-link" class="btn btn-outline-light btn-rounded border-w-2 text-uppercase font-weight-bold px-4 d-none d-lg-inline-block">Join</a>-->
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <router-view />
+    <router-view v-on:changeJwt="setJwt()" />
     <!--Hidden elements - excluded from jPanel Menu on mobile-->
     <div class="hidden-elements js-off-canvas-exclude">
       <div class="overlay overlay-fp" id="overlay-menu">
@@ -39,17 +39,17 @@
           <div class="overlay-header"> <i class="fa fa-home fa-3x"></i> </div>
           <div class="overlay-body">
             <ul class="nav nav-overlay">
-              <li class="nav-link"><router-link
+              <li class="nav-link" v-if="jwt"><router-link
               to="/techniques" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Techniques</router-link></li>
-              <li class="nav-link"><router-link
+              <li class="nav-link" v-if="jwt"><router-link
               to="/videos" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Videos</router-link></li>
-              <li class="nav-link"><router-link
+              <li class="nav-link" v-if="jwt"><router-link
               to="/flows" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Flows</router-link></li>
-              <li class="nav-link"><router-link
+              <li class="nav-link" v-if="jwt"><router-link
               to="/logout" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Logout</router-link></li>
-              <li class="nav-link"><router-link
+              <li class="nav-link" v-if="!jwt"><router-link
               to="/signup" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Signup</router-link></li>
-              <li class="nav-link"><router-link
+              <li class="nav-link" v-if="!jwt"><router-link
               to="/login" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Login</router-link></li>
             </ul>
           </div>
@@ -65,11 +65,28 @@
 <style></style>
 
 <script>
+export default {};
+</script>
+
+<script>
 /* global setupTheme */
 
 export default {
+  data: function() {
+    return {
+      jwt: null
+    };
+  },
+  created: function() {
+    this.setJwt();
+  },
   mounted: function() {
     setupTheme();
+  },
+  methods: {
+    setJwt: function() {
+      this.jwt = localStorage.getItem("jwt");
+    }
   }
 };
 </script>

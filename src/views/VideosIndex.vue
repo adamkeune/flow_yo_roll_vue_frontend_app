@@ -15,13 +15,9 @@
           Add this technique to your list...
         </router-link>
       </div>
-      <button
-        v-on:click="deleteVideo(video)"
-        type="button"
-        class="btn btn-primary"
-      >
+      <p v-on:click="deleteVideo(video)" class="list-group-item">
         Delete Video
-      </button>
+      </p>
     </div>
     <div v-if="videos.length === 0">No videos, brah?! Add one here...</div>
 
@@ -34,16 +30,6 @@
       >
         Add Video
       </button>
-      |
-      <router-link to="/frontpage">
-        <button type="button" class="btn btn-primary">
-          Back to Front Page
-        </button>
-      </router-link>
-      |
-      <router-link to="/logout">
-        <button type="button" class="btn btn-primary">Logout</button>
-      </router-link>
     </div>
 
     <div
@@ -103,7 +89,16 @@
   </div>
 </template>
 
-<style></style>
+<style>
+p {
+  color: #55a798;
+}
+
+p.hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+</style>
 
 <script>
 /* global setupTheme */

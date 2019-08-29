@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>My Flows</h1>
     <div v-for="flow in flows">
       <router-link :to="`/flows/${flow.id}`" class="list-group">
@@ -10,22 +10,12 @@
     <div class="mt-3">
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-primary d-block"
         data-toggle="modal"
         data-target="#new"
       >
         Add Flow
       </button>
-      |
-      <router-link to="/frontpage">
-        <button type="button" class="btn btn-primary">
-          Back to Front Page
-        </button>
-      </router-link>
-      |
-      <router-link to="/logout">
-        <button type="button" class="btn btn-primary">Logout</button>
-      </router-link>
     </div>
     <div
       id="new"
@@ -88,6 +78,13 @@
     <!-- /.modal -->
   </div>
 </template>
+
+<style>
+.btn {
+  width: 30%;
+  margin: 0 auto;
+}
+</style>
 
 <script>
 /* global setupTheme */

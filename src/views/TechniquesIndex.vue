@@ -9,22 +9,12 @@
     <div class="mt-3">
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-primary d-block"
         data-toggle="modal"
         data-target="#new"
       >
         Create Technique
       </button>
-      |
-      <router-link to="/frontpage">
-        <button type="button" class="btn btn-primary">
-          Back to Front Page
-        </button>
-      </router-link>
-      |
-      <router-link to="/logout">
-        <button type="button" class="btn btn-primary">Logout</button>
-      </router-link>
     </div>
     <div
       id="new"
@@ -114,7 +104,12 @@
   </div>
 </template>
 
-<style></style>
+<style>
+.btn {
+  width: 30%;
+  margin: 0 auto;
+}
+</style>
 
 <script>
 /* global setupTheme */
