@@ -79,12 +79,7 @@
   </div>
 </template>
 
-<style>
-.btn {
-  width: 30%;
-  margin: 0 auto;
-}
-</style>
+<style></style>
 
 <script>
 /* global setupTheme */

@@ -11,62 +11,45 @@
           <div class="header-inner container">
             <!--branding/logo -->
             <div class="header-brand">
-              <a class="header-brand-text" href="index.html" title="Home">
+              <router-link to="/" class="header-brand-text" title="Home">
                 <h1 class="h2">
                   <span class="header-brand-text-alt">FlowYo</span>Roll<span class="header-brand-text-alt">.</span>
                 </h1>
-              </a>
+              </router-link>
               <div class="header-divider d-none d-lg-block"></div>
               <div class="header-slogan d-none d-lg-block">Visualize Your Game</div>
             </div>
             <!-- other header content -->
             <div class="header-block order-12">
-
-              <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
-              <a href="#top" class="btn btn-link btn-icon text-white ml-2 order-12" data-toggle="overlay" data-target="#overlay-menu" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
-              <!--<a href="#join" data-toggle="scroll-link" class="btn btn-outline-light btn-rounded border-w-2 text-uppercase font-weight-bold px-4 d-none d-lg-inline-block">Join</a>-->
+              <ul class="nav">
+                <li class="nav-link" v-if="jwt"><router-link
+                to="/techniques" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Techniques</router-link></li>
+                <li class="nav-link" v-if="jwt"><router-link
+                to="/videos" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Videos</router-link></li>
+                <li class="nav-link" v-if="jwt"><router-link
+                to="/flows" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Flows</router-link></li>
+                <li class="nav-link" v-if="jwt"><router-link
+                to="/logout" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Logout</router-link></li>
+                <li class="nav-link" v-if="!jwt"><router-link
+                to="/signup" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Signup</router-link></li>
+                <li class="nav-link" v-if="!jwt"><router-link
+                to="/login" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Login</router-link></li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
 
-    <router-view v-on:changeJwt="setJwt()" />
-    <!--Hidden elements - excluded from jPanel Menu on mobile-->
-    <div class="hidden-elements js-off-canvas-exclude">
-      <div class="overlay overlay-fp" id="overlay-menu">
-        <div class="overlay-content">
-          <div class="overlay-header"> <i class="fa fa-home fa-3x"></i> </div>
-          <div class="overlay-body">
-            <ul class="nav nav-overlay">
-              <li class="nav-link" v-if="jwt"><router-link
-              to="/techniques" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Techniques</router-link></li>
-              <li class="nav-link" v-if="jwt"><router-link
-              to="/videos" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Videos</router-link></li>
-              <li class="nav-link" v-if="jwt"><router-link
-              to="/flows" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Flows</router-link></li>
-              <li class="nav-link" v-if="jwt"><router-link
-              to="/logout" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Logout</router-link></li>
-              <li class="nav-link" v-if="!jwt"><router-link
-              to="/signup" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Signup</router-link></li>
-              <li class="nav-link" v-if="!jwt"><router-link
-              to="/login" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Login</router-link></li>
-            </ul>
-          </div>
-          <div class="overlay-footer">
-            <a href="#" class="text-white op-8" data-dismiss="overlay"> <i class="ion-ios-close-empty icon-4x"></i> </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <router-view class="main-view" v-on:changeJwt="setJwt()" />
+    
   </div>
 </template>
 
 <style></style>
-
-<script>
-export default {};
-</script>
 
 <script>
 /* global setupTheme */

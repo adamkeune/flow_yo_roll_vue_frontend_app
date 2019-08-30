@@ -22,11 +22,6 @@ export default new Router({
       component: Frontpage
     },
     {
-      path: "/frontpage",
-      name: "frontpage",
-      component: Frontpage
-    },
-    {
       path: "/about",
       name: "about",
       // route level code-splitting

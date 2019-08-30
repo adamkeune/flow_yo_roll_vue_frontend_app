@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>{{ flow.title }}</h1>
     <p>{{ flow.description }}</p>
     <ul>

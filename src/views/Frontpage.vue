@@ -25,64 +25,66 @@
             Visualize Your Game
           </h3>
           <hr class="hr-white op-4 hr-lg w-20 mx-auto my-4" />
-          <div v-if="jwt">
-            <router-link
-              to="/techniques"
-              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
-              data-toggle="scroll-link"
-              data-animate="fadeIn"
-              data-animate-delay="0.45"
-            >
-              <h4>Techniques</h4>
-            </router-link>
-            <router-link
-              to="/videos"
-              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
-              data-toggle="scroll-link"
-              data-animate="fadeIn"
-              data-animate-delay="0.45"
-            >
-              <h4>Videos</h4>
-            </router-link>
-            <router-link
-              to="/flows"
-              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
-              data-toggle="scroll-link"
-              data-animate="fadeIn"
-              data-animate-delay="0.45"
-            >
-              <h4>Flows</h4>
-            </router-link>
-            <hr class="hr-white op-4 hr-lg w-20 mx-auto my-4" />
-            <router-link
-              to="/logout"
-              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
-              data-toggle="scroll-link"
-              data-animate="fadeIn"
-              data-animate-delay="0.45"
-            >
-              <h4>Logout</h4>
-            </router-link>
-          </div>
-          <div v-else-if="!jwt">
-            <router-link
-              to="/signup"
-              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
-              data-toggle="scroll-link"
-              data-animate="fadeIn"
-              data-animate-delay="0.45"
-            >
-              <h4>Signup</h4>
-            </router-link>
-            <router-link
-              to="/login"
-              class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
-              data-toggle="scroll-link"
-              data-animate="fadeIn"
-              data-animate-delay="0.45"
-            >
-              <h4>Login</h4>
-            </router-link>
+          <div id="links">
+            <div v-if="jwt">
+              <router-link
+                to="/techniques"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                data-toggle="scroll-link"
+                data-animate="fadeIn"
+                data-animate-delay="0.45"
+              >
+                <h4>Techniques</h4>
+              </router-link>
+              <router-link
+                to="/videos"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                data-toggle="scroll-link"
+                data-animate="fadeIn"
+                data-animate-delay="0.45"
+              >
+                <h4>Videos</h4>
+              </router-link>
+              <router-link
+                to="/flows"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                data-toggle="scroll-link"
+                data-animate="fadeIn"
+                data-animate-delay="0.45"
+              >
+                <h4>Flows</h4>
+              </router-link>
+              <hr class="hr-white op-4 hr-lg w-20 mx-auto my-4" />
+              <router-link
+                to="/logout"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                data-toggle="scroll-link"
+                data-animate="fadeIn"
+                data-animate-delay="0.45"
+              >
+                <h4>Logout</h4>
+              </router-link>
+            </div>
+            <div v-else-if="!jwt">
+              <router-link
+                to="/signup"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                data-toggle="scroll-link"
+                data-animate="fadeIn"
+                data-animate-delay="0.45"
+              >
+                <h4>Signup</h4>
+              </router-link>
+              <router-link
+                to="/login"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                data-toggle="scroll-link"
+                data-animate="fadeIn"
+                data-animate-delay="0.45"
+              >
+                <h4>Login</h4>
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -91,7 +93,7 @@
 </template>
 
 <style>
-.btn {
+#links .btn {
   width: 30%;
   margin: 0 auto;
   opacity: 0.6;
