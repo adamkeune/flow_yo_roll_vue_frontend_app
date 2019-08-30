@@ -47,15 +47,7 @@
         </li>
       </ul>
     </div>
-    <div><button v-on:click="createChart()">Map it out</button></div>
     <div id="cy" class="d-block w-95 mx-auto"></div>
-    <div class="mt-3">
-      <router-link to="/flows">Back to My Flows</router-link>
-      |
-      <router-link to="/frontpage">Back to Front Page</router-link>
-      |
-      <router-link to="/logout">Logout</router-link>
-    </div>
   </div>
 </template>
 
@@ -86,7 +78,7 @@ export default {
       edit: false,
       action: "",
       errors: [],
-      elements: [],
+      // elements: [],
       style: [
         // the stylesheet for the graph
         {
@@ -141,6 +133,58 @@ export default {
         } // transform a given node position. Useful for changing flow direction in discrete layouts
       }
     };
+  },
+  computed: {
+    elements() {
+      return this.flow_techniques.map(tech => {
+        if (tech.type.id === 1 || tech.type.id === 3) {
+          console.log(tech);
+          return {
+            data: {
+              id: tech.id,
+              name: tech.name
+            },
+            locked: false,
+            classes: [] // set CSS classes
+          };
+        } else {
+          console.log(tech);
+          return {
+            data: {
+              id: String(tech.id),
+              source: String(tech.source_position_id),
+              target: String(tech.target_position_id),
+              name: tech.name
+            }
+          };
+        }
+      });
+    },
+    cy() {
+      return cytoscape({
+        container: document.getElementById("cy"),
+        elements: this.elements,
+        style: this.style,
+        layout: this.layout,
+        zoom: 1,
+        minZoom: 0.8,
+        maxZoom: 2
+      });
+      // let layout = cy.layout;
+      // cy.on("click", "node", function(evt) {
+      //   var node = evt.target;
+      //   console.log("tapped " + node.id());
+      // });
+      // cy.on("click", "edge", function(evt) {
+      //   var edge = evt.target;
+      //   console.log("tapped " + edge.id());
+      // });
+    }
+  },
+  watch: {
+    elements() {
+      this.cy.layout.run();
+    }
   },
   created: function() {
     axios
@@ -210,8 +254,8 @@ export default {
         axios
           .delete(`/api/flow_techniques/${tech.id}`)
           .then(response => console.log(response.data));
-        let index2 = this.flow_techniques.indexOf(tech);
-        this.flow_techniques.splice(index2, 1);
+        let index = this.flow_techniques.indexOf(tech);
+        this.flow_techniques.splice(index, 1);
       }
       this.edit = false;
     },
@@ -219,47 +263,6 @@ export default {
       axios.delete(`api/flows/${this.$route.params.id}`).then(response => {
         console.log(response.data);
         this.$router.push("/flows");
-      });
-    },
-    createChart: function() {
-      var cy = cytoscape({
-        container: document.getElementById("cy"),
-        elements: this.flow_techniques.map(tech => {
-          if (tech.type.id === 1 || tech.type.id === 3) {
-            console.log(tech);
-            return {
-              data: {
-                id: tech.id,
-                name: tech.name
-              },
-              locked: false,
-              classes: [] // set CSS classes
-            };
-          } else {
-            console.log(tech);
-            return {
-              data: {
-                id: String(tech.id),
-                source: String(tech.source_position_id),
-                target: String(tech.target_position_id),
-                name: tech.name
-              }
-            };
-          }
-        }),
-        style: this.style,
-        layout: this.layout,
-        zoom: 1,
-        minZoom: 0.5,
-        maxZoom: 5
-      });
-      cy.on("click", "node", function(evt) {
-        var node = evt.target;
-        console.log("tapped " + node.id());
-      });
-      cy.on("click", "edge", function(evt) {
-        var edge = evt.target;
-        console.log("tapped " + edge.id());
       });
     }
   }
