@@ -12,9 +12,6 @@
           v-on:click="setActive(technique)"
           class="list-group-item"
         >
-          <!-- <router-link :to="`/techniques/${technique.id}`" class="list-group">
-              <h3 class="list-group-item">{{ technique.name }}</h3>
-            </router-link> -->
           <h3>{{ technique.name }}</h3>
         </div>
         <div class="mt-3">
@@ -73,12 +70,6 @@
         </div>
 
         <div class="mt-3">
-          <router-link to="/techniques">
-            <button type="button" class="btn btn-primary">
-              Back to Index
-            </button>
-          </router-link>
-          |
           <button
             type="button"
             class="btn btn-primary"
@@ -183,6 +174,85 @@
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <div id="edit" class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Technique</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+            </ul>
+            <form>
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" v-model="updatedName" type="text" />
+              </div>
+              <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea
+                  class="form-control"
+                  v-model="updatedDescription"
+                  rows="10"
+                  cols="30"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="source">Source:</label>
+                <input
+                  class="form-control"
+                  v-model="updatedSource"
+                  type="text"
+                />
+              </div>
+              <div class="form-group">
+                <label for="type">Type:</label>
+                <select class="form-control" v-model="updatedType">
+                  <option value="1">Position</option>
+                  <option value="2">Transition</option>
+                  <option value="3">Submission</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="priority">Priority:</label>
+                <input
+                  class="form-control"
+                  v-model="updatedPriority"
+                  type="number"
+                  min="1"
+                  max="5"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Cancel
+            </button>
+            <button
+              v-on:click="updateTechnique()"
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
   </div>
 </template>
 
@@ -219,6 +289,11 @@ export default {
       type: 1,
       priority: "",
       video: this.$route.query.url || "",
+      updatedName: "",
+      updatedDescription: "",
+      updatedSource: "",
+      updatedPriority: 1,
+      updatedType: 1,
       lastPractice: "",
       errors: []
     };
@@ -276,10 +351,35 @@ export default {
         })
         .catch(error => (this.errors = error.response.data.errors));
     },
+    updateTechnique: function() {
+      let params = {
+        name: this.updatedName,
+        description: this.updatedDescription,
+        priority: this.updatedPriority,
+        source: this.updatedSource,
+        type_id: this.updatedType
+      };
+      axios
+        .patch(`/api/techniques/${this.active.id}`, params)
+        .then(response => {
+          console.log(response.data);
+          let index = this.techniques.indexOf(this.active);
+          this.techniques.splice(index, 1, response.data);
+          this.active = response.data;
+          this.updatedName = "";
+          this.updatedDescription = "";
+          this.updatedSource = "";
+          this.updatedPriority = 1;
+          this.updatedType = 1;
+        })
+        .catch(error => (this.errors = error.response.data.errors));
+    },
     deleteTechnique: function() {
       axios.delete(`api/techniques/${this.active.id}`).then(response => {
         console.log(response.data);
-        this.$router.push("/techniques");
+        let index = this.techniques.indexOf(this.active);
+        this.techniques.splice(index, 1);
+        this.active = this.techniques[0];
       });
     }
   }
