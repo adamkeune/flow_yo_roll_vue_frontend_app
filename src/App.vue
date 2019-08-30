@@ -49,7 +49,11 @@
   </div>
 </template>
 
-<style></style>
+<style>
+/*.main-view {
+  background-image: url("/photos/dark-honeycomb.png");
+}*/
+</style>
 
 <script>
 /* global setupTheme */

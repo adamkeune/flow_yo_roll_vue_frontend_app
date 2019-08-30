@@ -257,10 +257,6 @@
 </template>
 
 <style>
-/*.btn {
-  width: 100%;
-  margin: 0 auto;
-}*/
 aside {
   min-width: 25%;
 }

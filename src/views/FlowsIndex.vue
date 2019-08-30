@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <h1>My Flows</h1>
     <div v-for="flow in flows">
       <router-link :to="`/flows/${flow.id}`" class="list-group">

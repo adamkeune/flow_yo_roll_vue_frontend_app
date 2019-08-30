@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <h1>{{ flow.title }}</h1>
     <p>{{ flow.description }}</p>
     <ul>
@@ -48,7 +48,7 @@
       </ul>
     </div>
     <div><button v-on:click="createChart()">Map it out</button></div>
-    <div id="cy"></div>
+    <div id="cy" class="d-block w-95 mx-auto"></div>
     <div class="mt-3">
       <router-link to="/flows">Back to My Flows</router-link>
       |
@@ -61,9 +61,7 @@
 
 <style>
 #cy {
-  width: 500px;
   height: 500px;
-  display: block;
   border: 1px solid black;
 }
 </style>
@@ -98,7 +96,7 @@ export default {
             width: "50",
             height: "50",
             "background-color": "#600",
-            "background-blacken": -0.5,
+            "background-blacken": -0.3,
             label: "data(name)",
             "text-valign": "center"
           }

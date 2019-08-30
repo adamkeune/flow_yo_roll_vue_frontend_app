@@ -1,23 +1,34 @@
 <template>
-  <div class="container">
-    <h1>My Videos</h1>
-    <div v-for="video in videos" class="list-group">
-      <h3 class="list-group-item">{{ video.title }}</h3>
-      <a :href="video.url" target="_blank" class="list-group-item">
-        Link to video
-      </a>
-      <div v-if="!video.technique">
-        <router-link
-          :to="`/techniques?url=${video.url}`"
-          class="list-group-item"
-        >
-          <!-- change this to reflect modal changes -->
-          Add this technique to your list...
-        </router-link>
+  <div class="container-fluid">
+    <span class="h1">My Videos</span>
+    <span class="float-right">
+      Search:
+      <input v-model="searchFilter" type="text" />
+    </span>
+    <div class="d-flex">
+      <div
+        v-for="video in filterBy(videos, searchFilter, 'title')"
+        class="card flex-row-3"
+      >
+        <h3 class="card-header">{{ video.title }}</h3>
+        <div class="card-body">
+          <a class="btn d-block" :href="video.url" target="_blank">
+            Link to video
+          </a>
+
+          <div v-if="!video.technique">
+            <button class="btn d-block mx-auto">
+              <router-link :to="`/techniques?url=${video.url}`">
+                <!-- change this to reflect modal changes -->
+                Add this technique
+              </router-link>
+            </button>
+          </div>
+          <button class="btn d-block mx-auto" v-on:click="deleteVideo(video)">
+            Delete Video
+          </button>
+        </div>
       </div>
-      <p v-on:click="deleteVideo(video)" class="list-group-item">
-        Delete Video
-      </p>
     </div>
     <div v-if="videos.length === 0">No videos, brah?! Add one here...</div>
 
@@ -41,7 +52,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">New Technique</h4>
+            <h4 class="modal-title">New Video</h4>
             <button
               type="button"
               class="close"
@@ -89,24 +100,18 @@
   </div>
 </template>
 
-<style>
-p {
-  color: #55a798;
-}
-
-p.hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-</style>
+<style></style>
 
 <script>
 /* global setupTheme */
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
+      searchFilter: "",
       videos: [],
       title: "",
       url: "",
