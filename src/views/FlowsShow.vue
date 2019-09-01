@@ -33,7 +33,7 @@
           <ul v-else-if="this.action === 'addTransition'">
             <li
               v-for="transition in transitions"
-              v-on:click="toggleChosenTransition(transition)"
+              v-on:click="chosen = transition"
             >
               <button class="btn btn-secondary">
                 {{ transition.name }}
@@ -242,7 +242,6 @@ export default {
   },
   methods: {
     addPosition: function() {
-      //refactor???
       this.action = "addPosition";
       this.positions = this.techniques.filter(
         tech => tech.type.id === 1 || tech.type.id === 3
@@ -250,7 +249,6 @@ export default {
       this.edit = !this.edit;
     },
     addTransition: function() {
-      // refactor???
       this.action = "addTransition";
       this.positions = this.flow_techniques.filter(
         tech => tech.type.id === 1 || tech.type.id === 3
@@ -266,8 +264,8 @@ export default {
       let params = {
         technique_id: tech.id,
         flow_id: this.$route.params.id,
-        source_position_id: this.source.id, // these need to change,
-        target_position_id: this.target.id // get IDs from flow_techniques
+        source_position_id: this.source.id,
+        target_position_id: this.target.id
       };
       let postToDatabase = params => {
         axios
