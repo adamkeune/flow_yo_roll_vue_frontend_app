@@ -122,7 +122,7 @@ export default {
   created: function() {
     axios.get("/api/videos").then(response => {
       console.log(response.data);
-      this.technique_id = this.$route.query.technique_id || null;
+      this.technique_id = this.$route.query.technique_id || "";
       this.videos = response.data;
     });
   },
@@ -140,12 +140,14 @@ export default {
         url: this.url,
         technique_id: this.technique_id
       };
+
       axios
         .post("api/videos", params)
         .then(response => {
           console.log(response.data);
           this.title = "";
           this.url = "";
+          this.technique_id = "";
           this.videos.push(response.data);
         })
         .catch(error => (this.errors = error.response.data.errors));

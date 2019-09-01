@@ -61,7 +61,7 @@
           allowfullscreen
         ></iframe>
         <div v-else="">
-          <router-link :to="`/videos?technique_id=${active.id}`">
+          <router-link :to="`/videos?technique_id=${this.active.id}`">
             Link a video to this technique...
           </router-link>
         </div>
