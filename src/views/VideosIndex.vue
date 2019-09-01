@@ -103,7 +103,7 @@
 <style></style>
 
 <script>
-/* global setupTheme */
+/* global setupTheme, $ */
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
 
@@ -128,6 +128,10 @@ export default {
   },
   mounted: function() {
     setupTheme();
+    if (this.$route.query.technique_id) {
+      // open modal
+      $("#new").modal("toggle");
+    }
   },
   methods: {
     createVideo: function() {

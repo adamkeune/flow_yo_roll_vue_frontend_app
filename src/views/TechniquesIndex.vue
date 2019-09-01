@@ -1,14 +1,30 @@
 <template>
   <div class="container-fluid">
-    <span class="h1">My Techniques</span>
-    <span class="float-right">
-      Search:
-      <input v-model="searchFilter" type="text" />
-    </span>
+    <div>
+      <span class="h1">My Techniques</span>
+      <!-- change to dropdown for sortAttribute -->
+      <button v-on:click="searchAttribute = 'priority'" class="btn btn-primary">
+        Sort by priority
+      </button>
+      <button v-on:click="searchAttribute = 'type'" class="btn btn-primary">
+        Sort by type
+      </button>
+      <button v-on:click="searchAttribute = 'name'" class="btn btn-primary">
+        Sort by name
+      </button>
+      <span class="float-right">
+        Search:
+        <input v-model="searchFilter" type="text" />
+      </span>
+    </div>
     <div class="d-flex">
       <aside class="flex-row-4 list-group mx-3 my-3 overflow-auto">
         <div
-          v-for="technique in filterBy(techniques, searchFilter, 'name')"
+          v-for="technique in filterBy(
+            techniques,
+            searchFilter,
+            searchAttribute
+          )"
           v-on:click="setActive(technique)"
           class="list-group-item"
         >
@@ -268,7 +284,7 @@ main {
 </style>
 
 <script>
-/* global setupTheme */
+/* global setupTheme, $ */
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
 
@@ -277,8 +293,9 @@ export default {
   data: function() {
     return {
       searchFilter: "",
+      searchAttribute: "name",
       techniques: [],
-      active: {},
+      active: { videos: [], type: {} },
       name: "",
       description: "",
       source: "",
@@ -302,9 +319,14 @@ export default {
       let last = this.active.practices.length - 1;
       this.lastPractice = this.active.practices[last].friendly_created_at;
     });
+    // this.setActive(this.techniques[0]);?
   },
   mounted: function() {
     setupTheme();
+    if (this.$route.query.url) {
+      // open modal
+      $("#new").modal("toggle");
+    }
   },
   methods: {
     createTechnique: function() {
@@ -340,6 +362,11 @@ export default {
       } else {
         this.lastPractice = "never";
       }
+      this.updatedName = this.active.name;
+      this.updatedDescription = this.active.description;
+      this.updatedSource = this.active.source;
+      this.updatedPriority = this.active.priority;
+      this.updatedType = this.active.type.id;
     },
     createPractice: function() {
       let params = {
@@ -366,13 +393,14 @@ export default {
         .then(response => {
           console.log(response.data);
           let index = this.techniques.indexOf(this.active);
-          this.techniques.splice(index, 1, response.data);
           this.active = response.data;
-          this.updatedName = "";
-          this.updatedDescription = "";
-          this.updatedSource = "";
-          this.updatedPriority = 1;
-          this.updatedType = 1;
+          // setActive()?
+          this.techniques.splice(index, 1, response.data);
+          this.updatedName = this.active.name;
+          this.updatedDescription = this.active.description;
+          this.updatedSource = this.active.source;
+          this.updatedPriority = this.active.priority;
+          this.updatedType = this.active.type.id;
         })
         .catch(error => (this.errors = error.response.data.errors));
     },
