@@ -20,58 +20,51 @@
         </button>
         <div v-if="edit">
           Techniques:
-          <!-- <select v-if="this.action === 'addPosition'">
-        <option v-for="position in positions" :value="position">
-          {{ position.name }}
-        </option>
-      </select> -->
-          <ul v-if="this.action === 'addPosition'">
-            <li v-for="position in positions" v-on:click="submit(position)">
-              <button class="btn btn-secondary">{{ position.name }}</button>
-            </li>
-          </ul>
-          <ul v-else-if="this.action === 'addTransition'">
-            <li
-              v-for="transition in transitions"
-              v-on:click="chosen = transition"
-            >
-              <button class="btn btn-secondary">
+          <form v-if="this.action === 'addPosition'">
+            <select v-model="selectedPosition">
+              <option v-for="position in positions" :value="position">
+                {{ position.name }}
+              </option>
+            </select>
+            <input
+              v-on:click="submit(selectedPosition)"
+              type="submit"
+              value="Submit"
+            />
+          </form>
+          <form v-else-if="this.action === 'addTransition'">
+            <select v-model="selectedTransition">
+              <option v-for="transition in transitions" :value="transition">
                 {{ transition.name }}
-              </button>
-              <div v-if="chosen === transition">
-                <label for="source">Source:</label>
-                <select v-model="source">
-                  <option v-for="position in positions" :value="position">
-                    {{ position.name }}
-                  </option>
-                </select>
-                <label for="target">Target:</label>
-                <select v-model="target">
-                  <option v-for="position in positions" :value="position">
-                    {{ position.name }}
-                  </option>
-                </select>
-                <label for="result">Result:</label>
-                <select v-model="success">
-                  <option value="true">
-                    Success
-                  </option>
-                  <option value="false">
-                    Failure
-                  </option>
-                </select>
-                <button v-on:click="submit(transition)">Submit</button>
-              </div>
-            </li>
-          </ul>
-          <ul v-else-if="this.action === 'delete'">
-            <li
-              v-for="technique in flow_techniques"
-              v-on:click="submit(technique)"
-            >
-              <button class="btn btn-secondary">{{ technique.name }}</button>
-            </li>
-          </ul>
+              </option>
+            </select>
+            <label for="source">Source:</label>
+            <select v-model="source">
+              <option v-for="position in positions" :value="position">
+                {{ position.name }}
+              </option>
+            </select>
+            <label for="target">Target:</label>
+            <select v-model="target">
+              <option v-for="position in positions" :value="position">
+                {{ position.name }}
+              </option>
+            </select>
+            <label for="result">Result:</label>
+            <select v-model="success">
+              <option value="true">
+                Success
+              </option>
+              <option value="false">
+                Failure
+              </option>
+            </select>
+            <input
+              v-on:click="submit(selectedTransition)"
+              type="submit"
+              value="Submit"
+            />
+          </form>
         </div>
       </div>
     </div>
@@ -112,6 +105,8 @@ export default {
       flow_techniques: [],
       positions: [],
       transitions: [],
+      selectedPosition: {},
+      selectedTransition: {},
       chosen: {},
       source: {},
       target: {},
@@ -262,6 +257,7 @@ export default {
     setupTheme();
   },
   methods: {
+    // refactor to setAction()
     addPosition: function() {
       this.action = "addPosition";
       this.positions = this.techniques.filter(tech => tech.type.id === 1);
@@ -300,6 +296,7 @@ export default {
         postToDatabase(params);
         this.source = {};
         this.target = {};
+        this.success = true;
       } else {
         axios
           .delete(`/api/flow_techniques/${tech.id}`)
@@ -320,13 +317,6 @@ export default {
         this.active = {};
       } else {
         this.active = tech;
-      }
-    },
-    toggleChosenTransition: function(trans) {
-      if (this.chosen === trans) {
-        this.chosen = {};
-      } else {
-        this.chosen = trans;
       }
     }
   }
