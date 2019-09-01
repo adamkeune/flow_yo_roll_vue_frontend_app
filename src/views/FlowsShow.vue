@@ -68,10 +68,12 @@
         </div>
       </div>
     </div>
+    <!-- filter out duplicate techniques below? -->
     <div class="d-flex flex-row">
       <ul class="flex-row-4 list-group">
         <li
           class="list-group-item"
+          :class="{ active: technique === active }"
           v-for="technique in flow_techniques"
           v-on:click="toggleActive(technique)"
         >
