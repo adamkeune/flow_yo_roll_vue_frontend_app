@@ -335,9 +335,13 @@ export default {
         description: this.description,
         source: this.source,
         type_id: this.type,
-        priority: this.priority,
-        video: this.video
+        priority: this.priority
       };
+
+      if (this.video) {
+        params["video"] = this.video;
+      }
+
       axios
         .post("/api/techniques", params)
         .then(response => {
@@ -348,7 +352,7 @@ export default {
           this.source = "";
           this.type = 1;
           this.priority = "";
-          this.video = this.$route.query.url || "";
+          this.video = "";
         })
         .catch(error => {
           this.errors = error.response.data.errors;
