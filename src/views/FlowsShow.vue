@@ -1,70 +1,90 @@
 <template>
-  <div class="container-fluid">
-    <h1>{{ flow.title }}</h1>
-    <p>{{ flow.description }}</p>
-    <ul>
-      <li v-for="technique in flow_techniques">{{ technique.name }}</li>
-    </ul>
-    <button class="btn btn-primary" v-on:click="addPosition()">
-      Add Position/Submission to Flow
-    </button>
-    <button class="btn btn-primary" v-on:click="addTransition()">
-      Add Transition to Flow
-    </button>
-    <button class="btn btn-primary" v-on:click="deleteTechnique()">
-      Remove Technique from Flow
-    </button>
-    <button class="btn btn-primary" v-on:click="deleteFlow()">
-      Delete this Flow
-    </button>
-    <div v-if="edit">
-      Techniques:
-      <!-- <select v-if="this.action === 'addPosition'">
+  <div class="container-fluid d-flex flex-column">
+    <div class="d-flex flex-row">
+      <div class="flex-row-4">
+        <h1>{{ flow.title }}</h1>
+        <p>{{ flow.description }}</p>
+      </div>
+      <div class="flex-row-8">
+        <button class="btn btn-primary" v-on:click="addPosition()">
+          Add Position/Submission to Flow
+        </button>
+        <button class="btn btn-primary" v-on:click="addTransition()">
+          Add Transition to Flow
+        </button>
+        <button class="btn btn-primary" v-on:click="deleteTechnique()">
+          Remove Technique from Flow
+        </button>
+        <button class="btn btn-primary" v-on:click="deleteFlow()">
+          Delete this Flow
+        </button>
+        <div v-if="edit">
+          Techniques:
+          <!-- <select v-if="this.action === 'addPosition'">
         <option v-for="position in positions" :value="position">
           {{ position.name }}
         </option>
       </select> -->
-      <ul v-if="this.action === 'addPosition'">
-        <li v-for="position in positions" v-on:click="submit(position)">
-          <button class="btn btn-secondary">{{ position.name }}</button>
-        </li>
-      </ul>
-      <ul v-else-if="this.action === 'addTransition'">
-        <li v-for="transition in transitions" v-on:click="chosen = transition">
-          <button class="btn btn-secondary">
-            {{ transition.name }}
-          </button>
-          <div v-if="chosen === transition">
-            <label for="source">Source:</label>
-            <select v-model="source">
-              <option v-for="position in positions" :value="position">
-                {{ position.name }}
-              </option>
-            </select>
-            <label for="target">Target:</label>
-            <select v-model="target">
-              <option v-for="position in positions" :value="position">
-                {{ position.name }}
-              </option>
-            </select>
-            <button v-on:click="submit(transition)">Submit</button>
-          </div>
-        </li>
-      </ul>
-      <ul v-else-if="this.action === 'delete'">
-        <li v-for="technique in flow_techniques" v-on:click="submit(technique)">
-          <button class="btn btn-secondary">{{ technique.name }}</button>
-        </li>
-      </ul>
+          <ul v-if="this.action === 'addPosition'">
+            <li v-for="position in positions" v-on:click="submit(position)">
+              <button class="btn btn-secondary">{{ position.name }}</button>
+            </li>
+          </ul>
+          <ul v-else-if="this.action === 'addTransition'">
+            <li
+              v-for="transition in transitions"
+              v-on:click="toggleChosenTransition(transition)"
+            >
+              <button class="btn btn-secondary">
+                {{ transition.name }}
+              </button>
+              <div v-if="chosen === transition">
+                <label for="source">Source:</label>
+                <select v-model="source">
+                  <option v-for="position in positions" :value="position">
+                    {{ position.name }}
+                  </option>
+                </select>
+                <label for="target">Target:</label>
+                <select v-model="target">
+                  <option v-for="position in positions" :value="position">
+                    {{ position.name }}
+                  </option>
+                </select>
+                <button v-on:click="submit(transition)">Submit</button>
+              </div>
+            </li>
+          </ul>
+          <ul v-else-if="this.action === 'delete'">
+            <li
+              v-for="technique in flow_techniques"
+              v-on:click="submit(technique)"
+            >
+              <button class="btn btn-secondary">{{ technique.name }}</button>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div id="cy" class="d-block w-95 mx-auto"></div>
+    <div class="d-flex flex-row">
+      <ul class="flex-row-4 list-group">
+        <li
+          class="list-group-item"
+          v-for="technique in flow_techniques"
+          v-on:click="toggleActive(technique)"
+        >
+          <h4>{{ technique.name }}</h4>
+          <p v-if="active === technique">{{ technique.description }}</p>
+        </li>
+      </ul>
+      <div id="cy" class="d-block w-85 mx-auto border border-primary"></div>
+    </div>
   </div>
 </template>
 
 <style>
 #cy {
   height: 500px;
-  /*border: 1px solid black;*/
 }
 </style>
 
@@ -79,6 +99,7 @@ export default {
     return {
       flow: {},
       techniques: [],
+      active: { name: "", description: "" },
       flow_techniques: [],
       positions: [],
       transitions: [],
@@ -213,6 +234,7 @@ export default {
       .then(response => {
         console.log(response.data);
         this.flow_techniques = response.data;
+        this.active = this.flow_techniques[0];
       });
   },
   mounted: function() {
@@ -274,6 +296,20 @@ export default {
         console.log(response.data);
         this.$router.push("/flows");
       });
+    },
+    toggleActive: function(tech) {
+      if (this.active === tech) {
+        this.active = {};
+      } else {
+        this.active = tech;
+      }
+    },
+    toggleChosenTransition: function(trans) {
+      if (this.chosen === trans) {
+        this.chosen = {};
+      } else {
+        this.chosen = trans;
+      }
     }
   }
 };
