@@ -7,10 +7,10 @@
       </div>
       <div class="flex-row-8">
         <button class="btn btn-primary" v-on:click="addPosition()">
-          Add Position/Submission to Flow
+          Add Position to Flow
         </button>
         <button class="btn btn-primary" v-on:click="addTransition()">
-          Add Transition to Flow
+          Add Transition/Submission to Flow
         </button>
         <button class="btn btn-primary" v-on:click="deleteTechnique()">
           Remove Technique from Flow
@@ -243,17 +243,15 @@ export default {
   methods: {
     addPosition: function() {
       this.action = "addPosition";
-      this.positions = this.techniques.filter(
-        tech => tech.type.id === 1 || tech.type.id === 3
-      );
+      this.positions = this.techniques.filter(tech => tech.type.id === 1);
       this.edit = !this.edit;
     },
     addTransition: function() {
       this.action = "addTransition";
-      this.positions = this.flow_techniques.filter(
-        tech => tech.type.id === 1 || tech.type.id === 3
+      this.positions = this.flow_techniques.filter(tech => tech.type.id === 1);
+      this.transitions = this.techniques.filter(
+        tech => tech.type.id === 2 || tech.type.id === 3
       );
-      this.transitions = this.techniques.filter(tech => tech.type.id === 2);
       this.edit = !this.edit;
     },
     deleteTechnique: function() {
