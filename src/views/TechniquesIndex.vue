@@ -27,6 +27,7 @@
           )"
           v-on:click="setActive(technique)"
           class="list-group-item"
+          :class="{ active: technique === active }"
         >
           <h3>{{ technique.name }}</h3>
         </div>
@@ -319,7 +320,6 @@ export default {
       let last = this.active.practices.length - 1;
       this.lastPractice = this.active.practices[last].friendly_created_at;
     });
-    // this.setActive(this.techniques[0]);?
   },
   mounted: function() {
     setupTheme();
