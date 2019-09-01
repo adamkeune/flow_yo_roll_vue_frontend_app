@@ -51,6 +51,15 @@
                     {{ position.name }}
                   </option>
                 </select>
+                <label for="result">Result:</label>
+                <select v-model="success">
+                  <option value="true">
+                    Success
+                  </option>
+                  <option value="false">
+                    Failure
+                  </option>
+                </select>
                 <button v-on:click="submit(transition)">Submit</button>
               </div>
             </li>
@@ -106,6 +115,7 @@ export default {
       chosen: {},
       source: {},
       target: {},
+      success: true,
       edit: false,
       action: "",
       errors: [],
@@ -180,14 +190,25 @@ export default {
           };
         } else {
           console.log(tech);
-          return {
-            data: {
-              id: String(tech.id),
-              source: String(tech.source_position_id),
-              target: String(tech.target_position_id),
-              name: tech.name
-            }
-          };
+          if (tech.success === true) {
+            return {
+              data: {
+                id: String(tech.id),
+                source: String(tech.source_position_id),
+                target: String(tech.target_position_id),
+                name: tech.name
+              }
+            };
+          } else {
+            return {
+              data: {
+                id: String(tech.id),
+                source: String(tech.source_position_id),
+                target: String(tech.target_position_id),
+                name: `${tech.name} - Failure`
+              }
+            };
+          }
         }
       });
     },
@@ -263,7 +284,8 @@ export default {
         technique_id: tech.id,
         flow_id: this.$route.params.id,
         source_position_id: this.source.id,
-        target_position_id: this.target.id
+        target_position_id: this.target.id,
+        success: this.success
       };
       let postToDatabase = params => {
         axios
