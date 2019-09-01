@@ -5,10 +5,18 @@
     <ul>
       <li v-for="technique in flow_techniques">{{ technique.name }}</li>
     </ul>
-    <button v-on:click="addPosition()">Add Position/Submission to Flow</button>
-    <button v-on:click="addTransition()">Add Transition to Flow</button>
-    <button v-on:click="deleteTechnique()">Remove Technique from Flow</button>
-    <button v-on:click="deleteFlow()">Delete this Flow</button>
+    <button class="btn btn-primary" v-on:click="addPosition()">
+      Add Position/Submission to Flow
+    </button>
+    <button class="btn btn-primary" v-on:click="addTransition()">
+      Add Transition to Flow
+    </button>
+    <button class="btn btn-primary" v-on:click="deleteTechnique()">
+      Remove Technique from Flow
+    </button>
+    <button class="btn btn-primary" v-on:click="deleteFlow()">
+      Delete this Flow
+    </button>
     <div v-if="edit">
       Techniques:
       <!-- <select v-if="this.action === 'addPosition'">
@@ -18,12 +26,14 @@
       </select> -->
       <ul v-if="this.action === 'addPosition'">
         <li v-for="position in positions" v-on:click="submit(position)">
-          <button>{{ position.name }}</button>
+          <button class="btn btn-secondary">{{ position.name }}</button>
         </li>
       </ul>
       <ul v-else-if="this.action === 'addTransition'">
         <li v-for="transition in transitions" v-on:click="chosen = transition">
-          {{ transition.name }}
+          <button class="btn btn-secondary">
+            {{ transition.name }}
+          </button>
           <div v-if="chosen === transition">
             <label for="source">Source:</label>
             <select v-model="source">
@@ -43,7 +53,7 @@
       </ul>
       <ul v-else-if="this.action === 'delete'">
         <li v-for="technique in flow_techniques" v-on:click="submit(technique)">
-          <button>{{ technique.name }}</button>
+          <button class="btn btn-secondary">{{ technique.name }}</button>
         </li>
       </ul>
     </div>
@@ -54,7 +64,7 @@
 <style>
 #cy {
   height: 500px;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 </style>
 
