@@ -168,7 +168,7 @@ export default {
   computed: {
     elements() {
       return this.flow_techniques.map(tech => {
-        if (tech.type.id === 1 || tech.type.id === 3) {
+        if (tech.type.id === 1) {
           console.log(tech);
           return {
             data: {
@@ -199,7 +199,7 @@ export default {
         layout: this.layout,
         zoom: 1,
         minZoom: 0.8,
-        maxZoom: 2
+        maxZoom: 1.5
       });
       // let layout = cy.layout;
       // cy.on("click", "node", function(evt) {
