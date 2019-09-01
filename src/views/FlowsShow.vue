@@ -65,6 +65,18 @@
               value="Submit"
             />
           </form>
+          <form v-else-if="this.action === 'delete'">
+            <select v-model="selectedPosition">
+              <option v-for="technique in flow_techniques" :value="technique">
+                {{ technique.name }}
+              </option>
+            </select>
+            <input
+              v-on:click="submit(selectedPosition)"
+              type="submit"
+              value="Submit"
+            />
+          </form>
         </div>
       </div>
     </div>
