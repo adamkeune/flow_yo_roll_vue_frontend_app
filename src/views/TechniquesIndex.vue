@@ -45,7 +45,7 @@
           allowfullscreen
         ></iframe>
         <div v-else="">
-          <router-link to="/videos-new">
+          <router-link :to="`/videos?technique_id=${active.id}`">
             Link a video to this technique...
           </router-link>
         </div>
@@ -334,6 +334,12 @@ export default {
     },
     setActive: function(tech) {
       this.active = tech;
+      if (this.active.practices.length > 0) {
+        let last = this.active.practices.length - 1;
+        this.lastPractice = this.active.practices[last].friendly_created_at;
+      } else {
+        this.lastPractice = "never";
+      }
     },
     createPractice: function() {
       let params = {

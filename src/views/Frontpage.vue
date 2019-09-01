@@ -1,5 +1,5 @@
 <template>
-  <div class="container home">
+  <div class="container-fluid home">
     <!-- ======== @Region: #highlighted ======== -->
     <div id="highlighted" class="border-0">
       <!-- Image Banner: Use the the data-bg-img functionality to create a simple image banner Use spacer classes to make the banner larger with padding, allows for easy responsive changes too see: elements-ctas.htm To make the banner full height add the attributes: data-toggle="full-height" data-offset="#header" -->
@@ -29,7 +29,7 @@
             <div v-if="jwt">
               <router-link
                 to="/techniques"
-                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                class="btn btn-white d-block font-weight-bold text-primary py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -38,7 +38,7 @@
               </router-link>
               <router-link
                 to="/videos"
-                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                class="btn btn-white d-block font-weight-bold text-primary py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -47,7 +47,7 @@
               </router-link>
               <router-link
                 to="/flows"
-                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                class="btn btn-white d-block font-weight-bold text-primary py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -57,7 +57,7 @@
               <hr class="hr-white op-4 hr-lg w-20 mx-auto my-4" />
               <router-link
                 to="/logout"
-                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -68,7 +68,7 @@
             <div v-else-if="!jwt">
               <router-link
                 to="/signup"
-                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -77,7 +77,7 @@
               </router-link>
               <router-link
                 to="/login"
-                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5"
+                class="btn btn-white d-block font-weight-bold py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -94,9 +94,8 @@
 
 <style>
 #links .btn {
-  width: 30%;
   margin: 0 auto;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 </style>
 
