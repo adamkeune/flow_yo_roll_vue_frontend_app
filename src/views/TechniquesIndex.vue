@@ -41,6 +41,10 @@
     <div id="box" class="d-flex">
       <aside
         class="flex-row-4 list-group mx-3 my-3 overflow-auto w-30 h-95 shadow"
+        is="transition-group"
+        appear
+        enter-active-class="animated fadeInLeftBig"
+        leave-active-class="animated fadeOutLeftBig"
       >
         <div
           v-for="technique in filterBy(
@@ -51,6 +55,7 @@
           v-on:click="setActive(technique)"
           class="list-group-item"
           :class="{ active: technique === active }"
+          v-bind:key="technique.id"
         >
           <h3>{{ technique.name }}</h3>
         </div>

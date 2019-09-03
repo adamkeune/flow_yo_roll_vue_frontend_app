@@ -17,9 +17,16 @@
         </button>
       </div>
     </div>
-    <div class="row overflow-auto mt-5 mh-80">
+    <div
+      is="transition-group"
+      class="row overflow-auto mt-5 mh-80"
+      appear
+      enter-active-class="animated bounceIn"
+      leave-active-class="animated bounceOut"
+    >
       <div
         v-for="video in filterBy(videos, searchFilter, 'title')"
+        v-bind:key="video.id"
         class="col-sm-4"
       >
         <div class="card w-90 text-center shadow rounded">

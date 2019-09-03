@@ -142,10 +142,10 @@ export default {
         {
           selector: "node",
           style: {
-            shape: "square",
-            width: "50",
-            height: "50",
-            "background-color": "#600",
+            shape: "diamond",
+            width: "120",
+            height: "60",
+            "background-color": "#900",
             "background-blacken": -0.3,
             label: "data(name)",
             "text-valign": "center"
@@ -157,7 +157,7 @@ export default {
           style: {
             width: 3,
             "line-color": "#ccc",
-            "target-arrow-color": "#ccc",
+            "target-arrow-color": "#000",
             "target-arrow-shape": "triangle",
             "curve-style": "straight",
             label: "data(name)"
@@ -168,10 +168,10 @@ export default {
         name: "breadthfirst",
 
         fit: false, // whether to fit the viewport to the graph
-        directed: true, // whether the tree is directed downwards (or edges can point in any direction if false)
+        directed: false, // whether the tree is directed downwards (or edges can point in any direction if false)
         padding: 30, // padding on fit
         circle: false, // put depths in concentric circles if true, put depths top down if false
-        grid: true, // whether to create an even grid into which the DAG is placed (circle:false only)
+        grid: false, // whether to create an even grid into which the DAG is placed (circle:false only)
         spacingFactor: 1.75, // positive spacing factor, larger => more space between nodes (N.B. n/a if causes overlap)
         boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
         avoidOverlap: true, // prevents node overlap, may overflow boundingBox if not enough space
