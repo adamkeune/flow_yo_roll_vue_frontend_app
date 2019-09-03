@@ -1,21 +1,42 @@
 <template>
   <div class="container-fluid">
-    <div>
+    <div class="clearfix">
       <span class="h1">My Techniques</span>
-      <!-- change to dropdown for sortAttribute -->
-      <button v-on:click="searchAttribute = 'priority'" class="btn btn-primary">
-        Sort by priority
-      </button>
-      <button v-on:click="searchAttribute = 'type'" class="btn btn-primary">
-        Sort by type
-      </button>
-      <button v-on:click="searchAttribute = 'name'" class="btn btn-primary">
-        Sort by name
-      </button>
       <span class="float-right">
         Search:
-        <input v-model="searchFilter" type="text" />
+        <input class="rounded" v-model="searchFilter" type="text" size="40" />
       </span>
+      <div class="clearfix mt-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#new"
+        >
+          Create Technique
+        </button>
+        <!-- change to dropdown for sortAttribute -->
+        <div class="float-right">
+          <button
+            v-on:click="searchAttribute = 'name'"
+            class="btn btn-primary ml-2"
+          >
+            Sort by name
+          </button>
+          <button
+            v-on:click="searchAttribute = 'type'"
+            class="btn btn-primary ml-2"
+          >
+            Sort by type
+          </button>
+          <button
+            v-on:click="searchAttribute = 'priority'"
+            class="btn btn-primary ml-2"
+          >
+            Sort by priority
+          </button>
+        </div>
+      </div>
     </div>
     <div id="box" class="d-flex">
       <aside
@@ -32,16 +53,6 @@
           :class="{ active: technique === active }"
         >
           <h3>{{ technique.name }}</h3>
-        </div>
-        <div class="mt-3">
-          <button
-            type="button"
-            class="btn btn-lg btn-primary d-block"
-            data-toggle="modal"
-            data-target="#new"
-          >
-            Create Technique
-          </button>
         </div>
       </aside>
       <main

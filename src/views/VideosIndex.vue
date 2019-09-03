@@ -4,7 +4,7 @@
       <h1 class="text-center">My Videos</h1>
       <div class="float-right mt-3">
         Search:
-        <input v-model="searchFilter" type="text" />
+        <input v-model="searchFilter" type="text" size="40" />
       </div>
       <div class="mt-3 float-left">
         <button
@@ -17,7 +17,7 @@
         </button>
       </div>
     </div>
-    <div class="row overflow-auto mt-3 mh-80">
+    <div class="row overflow-auto mt-5 mh-80">
       <div
         v-for="video in filterBy(videos, searchFilter, 'title')"
         class="col-sm-4"
