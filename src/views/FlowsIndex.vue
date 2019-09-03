@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid">
-    <h1>My Flows</h1>
-    <div v-for="flow in flows">
-      <router-link :to="`/flows/${flow.id}`" class="list-group">
+  <div id="flows-index" class="container">
+    <h1 class="mx-auto text-center">My Flows</h1>
+    <div v-for="flow in flows" class="mx-auto text-center overflow-auto">
+      <router-link :to="`/flows/${flow.id}`" class="list-group w-30 mx-auto">
         <h3 class="list-group-item">{{ flow.title }}</h3>
       </router-link>
     </div>
@@ -10,7 +10,7 @@
     <div class="mt-3">
       <button
         type="button"
-        class="btn btn-primary d-block"
+        class="btn btn-primary d-block mx-auto"
         data-toggle="modal"
         data-target="#new"
       >
@@ -79,7 +79,11 @@
   </div>
 </template>
 
-<style></style>
+<style>
+#flows-index {
+  height: 650px;
+}
+</style>
 
 <script>
 /* global setupTheme */

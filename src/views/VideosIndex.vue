@@ -1,47 +1,50 @@
 <template>
-  <div class="container-fluid">
-    <span class="h1">My Videos</span>
-    <span class="float-right">
-      Search:
-      <input v-model="searchFilter" type="text" />
-    </span>
-    <div class="d-flex">
+  <div class="container" id="video-index">
+    <div class="clearfix">
+      <h1 class="text-center">My Videos</h1>
+      <div class="float-right mt-3">
+        Search:
+        <input v-model="searchFilter" type="text" />
+      </div>
+      <div class="mt-3 float-left">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#new"
+        >
+          Add Video
+        </button>
+      </div>
+    </div>
+    <div class="row overflow-auto mt-3 mh-80">
       <div
         v-for="video in filterBy(videos, searchFilter, 'title')"
-        class="card flex-row-3"
+        class="col-sm-4"
       >
-        <h3 class="card-header">{{ video.title }}</h3>
-        <div class="card-body">
-          <a class="btn d-block" :href="video.url" target="_blank">
-            Link to video
-          </a>
+        <div class="card w-90 text-center shadow rounded">
+          <h3 class="card-header text-white bg-primary">{{ video.title }}</h3>
+          <div class="card-body">
+            <a class="btn d-block" :href="video.url" target="_blank">
+              Link to video
+            </a>
 
-          <div v-if="!video.technique">
-            <button class="btn d-block mx-auto">
-              <router-link :to="`/techniques?url=${video.url}`">
-                <!-- change this to reflect modal changes -->
-                Add this technique
-              </router-link>
+            <div v-if="!video.technique">
+              <button class="btn d-block mx-auto">
+                <router-link :to="`/techniques?url=${video.url}`">
+                  <!-- change this to reflect modal changes -->
+                  Add this technique
+                </router-link>
+              </button>
+            </div>
+            <button class="btn d-block mx-auto" v-on:click="deleteVideo(video)">
+              Delete Video
             </button>
           </div>
-          <button class="btn d-block mx-auto" v-on:click="deleteVideo(video)">
-            Delete Video
-          </button>
         </div>
       </div>
     </div>
     <div v-if="videos.length === 0">No videos, brah?! Add one here...</div>
-
-    <div class="mt-3">
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#new"
-      >
-        Add Video
-      </button>
-    </div>
 
     <div
       id="new"
@@ -100,7 +103,11 @@
   </div>
 </template>
 
-<style></style>
+<style>
+#video-index {
+  height: 700px;
+}
+</style>
 
 <script>
 /* global setupTheme, $ */

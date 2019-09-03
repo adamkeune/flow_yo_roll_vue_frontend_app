@@ -17,7 +17,7 @@
         <input v-model="searchFilter" type="text" />
       </span>
     </div>
-    <div class="d-flex">
+    <div id="box" class="d-flex">
       <aside class="flex-row-4 list-group mx-3 my-3 overflow-auto">
         <div
           v-for="technique in filterBy(
@@ -274,12 +274,17 @@
 </template>
 
 <style>
+#box {
+  height: 600px;
+}
+
 aside {
   min-width: 25%;
+  height: 95%;
 }
 main {
   max-width: 70%;
-  height: 600px;
+  height: 95%;
   border: 1px solid black;
 }
 </style>
@@ -319,6 +324,11 @@ export default {
       this.active = this.techniques[0];
       let last = this.active.practices.length - 1;
       this.lastPractice = this.active.practices[last].friendly_created_at;
+      this.updatedName = this.active.name;
+      this.updatedDescription = this.active.description;
+      this.updatedSource = this.active.source;
+      this.updatedPriority = this.active.priority;
+      this.updatedType = this.active.type.id;
     });
   },
   mounted: function() {
