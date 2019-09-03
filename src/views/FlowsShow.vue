@@ -85,18 +85,21 @@
     </div>
     <!-- filter out duplicate techniques below? -->
     <div class="d-flex flex-row">
-      <ul class="flex-row-4 list-group">
-        <li
+      <div class="flex-row-4 list-group mx-3 my-3 overflow-auto w-25 h-95">
+        <div
           class="list-group-item"
           :class="{ active: technique === active }"
           v-for="technique in flow_techniques"
           v-on:click="toggleActive(technique)"
         >
-          <h4>{{ technique.name }}</h4>
+          <h3>{{ technique.name }}</h3>
           <p v-if="active === technique">{{ technique.description }}</p>
-        </li>
-      </ul>
-      <div id="cy" class="d-block w-85 mx-auto border border-primary"></div>
+        </div>
+      </div>
+      <!-- <main
+        class="flex-row-8 flex-fill mx-3 my-3 text-center mx-auto h-95 w-70"
+      ></main> -->
+      <div id="cy" class="flex-row-8 h-95 w-70"></div>
     </div>
   </div>
 </template>
@@ -104,10 +107,6 @@
 <style>
 #flows-show {
   height: 700px;
-}
-
-#cy {
-  height: 500px;
 }
 </style>
 
@@ -166,7 +165,7 @@ export default {
       layout: {
         name: "breadthfirst",
 
-        fit: true, // whether to fit the viewport to the graph
+        fit: false, // whether to fit the viewport to the graph
         directed: true, // whether the tree is directed downwards (or edges can point in any direction if false)
         padding: 30, // padding on fit
         circle: false, // put depths in concentric circles if true, put depths top down if false

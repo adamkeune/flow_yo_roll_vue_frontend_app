@@ -1,8 +1,11 @@
 <template>
   <div id="flows-index" class="container">
     <h1 class="mx-auto text-center">My Flows</h1>
-    <div v-for="flow in flows" class="mx-auto text-center overflow-auto">
-      <router-link :to="`/flows/${flow.id}`" class="list-group w-30 mx-auto">
+    <div
+      v-for="flow in flows"
+      class="w-30 mx-auto text-center overflow-auto shadow"
+    >
+      <router-link :to="`/flows/${flow.id}`" class="list-group mx-auto">
         <h3 class="list-group-item">{{ flow.title }}</h3>
       </router-link>
     </div>

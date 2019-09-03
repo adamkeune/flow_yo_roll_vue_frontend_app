@@ -18,7 +18,9 @@
       </span>
     </div>
     <div id="box" class="d-flex">
-      <aside class="flex-row-4 list-group mx-3 my-3 overflow-auto">
+      <aside
+        class="flex-row-4 list-group mx-3 my-3 overflow-auto w-30 h-95 shadow"
+      >
         <div
           v-for="technique in filterBy(
             techniques,
@@ -42,14 +44,17 @@
           </button>
         </div>
       </aside>
-      <main class="flex-row-8 flex-fill mx-3 my-3 text-center">
+      <main
+        id="active-box"
+        class="flex-row-8 flex-fill mx-3 my-3 text-center h-95 w-70"
+      >
         <h1>
           {{ active.name }}
         </h1>
         <p>{{ active.description }}</p>
         <iframe
           v-if="active.videos[0] !== undefined"
-          class="d-block mx-auto"
+          class="d-block mx-auto shadow"
           width="560"
           height="315"
           :src="
@@ -278,14 +283,8 @@
   height: 600px;
 }
 
-aside {
-  min-width: 25%;
-  height: 95%;
-}
-main {
-  max-width: 70%;
-  height: 95%;
-  border: 1px solid black;
+#active-box {
+  border: 1px black solid;
 }
 </style>
 
