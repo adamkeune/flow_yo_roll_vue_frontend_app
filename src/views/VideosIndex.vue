@@ -1,8 +1,8 @@
 <template>
   <div class="container" id="video-index">
     <div class="clearfix">
-      <h1 class="text-center">My Videos</h1>
-      <div class="float-right mt-3">
+      <h1 class="text-center text-white">My Videos</h1>
+      <div class="float-right mt-3 text-white">
         Search:
         <input v-model="searchFilter" type="text" size="40" />
       </div>

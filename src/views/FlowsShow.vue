@@ -1,7 +1,7 @@
 <template>
   <div id="flows-show" class="container-fluid d-flex flex-column">
     <div class="d-flex flex-row">
-      <div class="flex-row-4">
+      <div class="flex-row-4 text-white">
         <h1>{{ flow.title }}</h1>
         <p>{{ flow.description }}</p>
       </div>
@@ -18,9 +18,9 @@
         <button class="btn btn-primary" v-on:click="deleteFlow()">
           Delete this Flow
         </button>
-        <div v-if="edit" class="mx-auto text-center">
+        <div v-if="edit" class="mx-auto text-center text-white">
           <form v-if="this.action === 'addPosition'">
-            <label class="pr-2">Technique:</label>
+            <label class="p-2">Technique:</label>
             <select v-model="selectedPosition">
               <option v-for="position in positions" :value="position">
                 {{ position.name }}
@@ -30,29 +30,29 @@
               v-on:click="submit(selectedPosition)"
               type="submit"
               value="Submit"
-              class="pr-2"
+              class="ml-2"
             />
           </form>
           <form v-else-if="this.action === 'addTransition'">
-            <label class="pr-2">Technique:</label>
+            <label class="p-2">Technique:</label>
             <select v-model="selectedTransition">
               <option v-for="transition in transitions" :value="transition">
                 {{ transition.name }}
               </option>
             </select>
-            <label class="pr-2" for="source">Source:</label>
+            <label class="p-2" for="source">Source:</label>
             <select v-model="source">
               <option v-for="position in positions" :value="position">
                 {{ position.name }}
               </option>
             </select>
-            <label class="pr-2" for="target">Target:</label>
+            <label class="p-2" for="target">Target:</label>
             <select v-model="target">
               <option v-for="position in positions" :value="position">
                 {{ position.name }}
               </option>
             </select>
-            <label class="pr-2" for="result">Result:</label>
+            <label class="p-2" for="result">Result:</label>
             <select v-model="success">
               <option value="true">
                 Success
@@ -65,10 +65,11 @@
               v-on:click="submit(selectedTransition)"
               type="submit"
               value="Submit"
+              class="ml-2"
             />
           </form>
           <form v-else-if="this.action === 'delete'">
-            <label class="pr-2">Technique:</label>
+            <label class="p-2">Technique:</label>
             <select v-model="selectedPosition">
               <option v-for="technique in flow_techniques" :value="technique">
                 {{ technique.name }}
@@ -78,6 +79,7 @@
               v-on:click="submit(selectedPosition)"
               type="submit"
               value="Submit"
+              class="ml-2"
             />
           </form>
         </div>
@@ -99,7 +101,7 @@
       <!-- <main
         class="flex-row-8 flex-fill mx-3 my-3 text-center mx-auto h-95 w-70"
       ></main> -->
-      <div id="cy" class="flex-row-8 h-95 w-70"></div>
+      <div id="cy" class="flex-row-8 h-95 w-70 bg-grey"></div>
     </div>
   </div>
 </template>

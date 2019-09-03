@@ -1,6 +1,6 @@
 <template>
   <div id="flows-index" class="container">
-    <h1 class="mx-auto text-center">My Flows</h1>
+    <h1 class="mx-auto text-center text-white">My Flows</h1>
     <div
       v-for="flow in flows"
       class="w-30 mx-auto text-center overflow-auto shadow"

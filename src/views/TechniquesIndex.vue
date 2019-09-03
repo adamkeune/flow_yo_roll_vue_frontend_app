@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="clearfix">
-      <span class="h1">My Techniques</span>
-      <span class="float-right">
+      <span class="h1 text-primary">My Techniques</span>
+      <span class="float-right text-white">
         Search:
         <input class="rounded" v-model="searchFilter" type="text" size="40" />
       </span>
@@ -57,7 +57,7 @@
       </aside>
       <main
         id="active-box"
-        class="flex-row-8 flex-fill mx-3 my-3 text-center h-95 w-70"
+        class="flex-row-8 flex-fill mx-3 my-3 text-center h-95 w-70 bg-grey"
       >
         <h1>
           {{ active.name }}
