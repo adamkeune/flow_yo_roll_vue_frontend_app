@@ -22,14 +22,14 @@
     </div>
     <div
       id="new"
-      class="modal"
+      class="modal fade"
       data-modal-animate-in="slideInLeft"
       data-modal-animate-out="slideOutLeft"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">New Flow</h4>
+            <h4 class="modal-title">New Video</h4>
             <button
               type="button"
               class="close"
@@ -40,23 +40,18 @@
             </button>
           </div>
           <div class="modal-body">
-            <h1>Add a Flow</h1>
+            <h1>Add Flow</h1>
             <ul>
-              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+              <li v-for="error in errors" class="text-danger">{{ error }}</li>
             </ul>
             <form>
               <div class="form-group">
-                <label for="name">Title:</label>
+                <label for="title">Title:</label>
                 <input class="form-control" v-model="title" type="text" />
               </div>
               <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea
-                  class="form-control"
-                  v-model="description"
-                  rows="10"
-                  cols="30"
-                ></textarea>
+                <label for="url">Description:</label>
+                <input class="form-control" v-model="description" type="text" />
               </div>
             </form>
           </div>
@@ -70,7 +65,7 @@
               class="btn btn-primary"
               data-dismiss="modal"
             >
-              Add Flow
+              Save changes
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="clearfix">
-      <span class="h1 text-primary">My Techniques</span>
+      <span class="h1 text-white">My Techniques</span>
       <span class="float-right text-white">
         Search:
         <input class="rounded" v-model="searchFilter" type="text" size="40" />
@@ -366,6 +366,7 @@ export default {
       if (this.video) {
         params["video"] = this.video;
       }
+      console.log(params);
 
       axios
         .post("/api/techniques", params)
