@@ -85,8 +85,7 @@
         </div>
       </div>
     </div>
-    <!-- filter out duplicate techniques below? -->
-    <div class="d-flex flex-row">
+    <div id="flow-box" class="d-flex flex-row">
       <div class="flex-row-4 list-group mx-3 my-3 overflow-auto w-25 h-95">
         <div
           class="list-group-item"
@@ -98,9 +97,6 @@
           <p v-if="active === technique">{{ technique.description }}</p>
         </div>
       </div>
-      <!-- <main
-        class="flex-row-8 flex-fill mx-3 my-3 text-center mx-auto h-95 w-70"
-      ></main> -->
       <div id="cy" class="flex-row-8 h-95 w-70 bg-grey"></div>
     </div>
   </div>
@@ -109,6 +105,10 @@
 <style>
 #flows-show {
   height: 700px;
+}
+
+#flow-box {
+  height: 600px;
 }
 </style>
 
@@ -136,7 +136,6 @@ export default {
       edit: false,
       action: "",
       errors: [],
-      // elements: [],
       style: [
         // the stylesheet for the graph
         {
@@ -156,7 +155,7 @@ export default {
           selector: "edge",
           style: {
             width: 3,
-            "line-color": "#ccc",
+            "line-color": "#aaa",
             "target-arrow-color": "#000",
             "target-arrow-shape": "triangle",
             "curve-style": "straight",
@@ -168,10 +167,10 @@ export default {
         name: "breadthfirst",
 
         fit: false, // whether to fit the viewport to the graph
-        directed: false, // whether the tree is directed downwards (or edges can point in any direction if false)
+        directed: true, // whether the tree is directed downwards (or edges can point in any direction if false)
         padding: 30, // padding on fit
         circle: false, // put depths in concentric circles if true, put depths top down if false
-        grid: false, // whether to create an even grid into which the DAG is placed (circle:false only)
+        grid: true, // whether to create an even grid into which the DAG is placed (circle:false only)
         spacingFactor: 1.75, // positive spacing factor, larger => more space between nodes (N.B. n/a if causes overlap)
         boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
         avoidOverlap: true, // prevents node overlap, may overflow boundingBox if not enough space
