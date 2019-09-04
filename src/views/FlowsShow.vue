@@ -89,12 +89,14 @@
       <div class="flex-row-4 list-group mx-3 my-3 overflow-auto w-25 h-95">
         <div
           class="list-group-item"
-          :class="{ active: technique === active }"
+          :class="{ myActive: technique === active }"
           v-for="technique in flow_techniques"
           v-on:click="toggleActive(technique)"
         >
           <h3>{{ technique.name }}</h3>
-          <p v-if="active === technique">{{ technique.description }}</p>
+          <p v-if="active === technique">
+            {{ technique.description }}
+          </p>
         </div>
       </div>
       <div id="cy" class="flex-row-8 h-95 w-70 bg-grey"></div>

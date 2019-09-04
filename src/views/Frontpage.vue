@@ -8,7 +8,7 @@
         data-toggle="backstretch"
         data-backstretch-target="self"
         data-backstretch-overlay="false"
-        data-backstretch-imgs="photos/jonathan-borba-jWYbjMfDvrI-unsplash.jpg, photos/rafaela-biazi-0mfj0jJt0dY-unsplash.jpg, photos/jonathan-borba-YcrcG17Kjmg-unsplash.jpg"
+        data-backstretch-imgs="photos/jonathan-borba-jWYbjMfDvrI-unsplash.jpg, photos/rafaela-biazi-0mfj0jJt0dY-unsplash.jpg, photos/jonathan-borba-YcrcG17Kjmg-unsplash.jpg, photos/jiu-jitsu-2184597_1280.jpg"
       >
         <div
           data-toggle="full-height"

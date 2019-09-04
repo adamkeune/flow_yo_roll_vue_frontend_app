@@ -54,7 +54,7 @@
           )"
           v-on:click="setActive(technique)"
           class="list-group-item"
-          :class="{ active: technique === active }"
+          :class="{ myActive: technique === active }"
           v-bind:key="technique.id"
         >
           <h3>{{ technique.name }}</h3>
