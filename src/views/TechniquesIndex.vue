@@ -21,19 +21,19 @@
             v-on:click="searchAttribute = 'name'"
             class="btn btn-teal ml-2"
           >
-            Sort by name
+            Search by name
           </button>
           <button
             v-on:click="searchAttribute = 'type'"
             class="btn btn-teal ml-2"
           >
-            Sort by type
+            Search by type
           </button>
           <button
             v-on:click="searchAttribute = 'priority'"
             class="btn btn-teal ml-2"
           >
-            Sort by priority
+            Search by priority
           </button>
         </div>
       </div>

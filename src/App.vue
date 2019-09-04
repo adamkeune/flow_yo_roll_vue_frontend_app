@@ -50,9 +50,9 @@
 </template>
 
 <style>
-/*.main-view {
-  background-image: url("/photos/dark-honeycomb.png");
-}*/
+.header-brand {
+  font-family: "Kalam", cursive;
+}
 </style>
 
 <script>

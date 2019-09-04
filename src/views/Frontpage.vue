@@ -17,9 +17,8 @@
           class="px-3 py-5 py-lg-10 flex-valign"
           data-animate="fadeIn"
           data-animate-delay="0.2"
-          data-colour-scheme="orange"
         >
-          <h1 class="display-1 text-orange text-slab mt-lg-5">
+          <h1 id="headliner" class="display-1 text-orange mt-lg-5">
             FlowYoRoll
           </h1>
           <h3 class="text-grey font-weight-normal text-slab">
@@ -94,6 +93,10 @@
 </template>
 
 <style>
+#headliner {
+  font-family: "Kalam", cursive;
+  font-size: 120px;
+}
 #links .btn {
   margin: 0 auto;
   opacity: 0.8;
