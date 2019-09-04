@@ -1,11 +1,11 @@
 <template>
   <div id="flows-show" class="container-fluid d-flex flex-column">
     <div class="d-flex flex-row">
-      <div class="flex-row-4 text-white">
+      <div class="flex-row-4 text-white w-35">
         <h1>{{ flow.title }}</h1>
         <p>{{ flow.description }}</p>
       </div>
-      <div class="flex-row-8">
+      <div class="flex-row-8 w-60">
         <button class="btn btn-teal" v-on:click="addPosition()">
           Add Position to Flow
         </button>
@@ -46,6 +46,7 @@
                 {{ position.name }}
               </option>
             </select>
+            <br />
             <label class="p-2" for="target">Target:</label>
             <select v-model="target">
               <option v-for="position in positions" :value="position">
@@ -159,7 +160,7 @@ export default {
             "line-color": "#aaa",
             "target-arrow-color": "#000",
             "target-arrow-shape": "triangle",
-            "curve-style": "straight",
+            "curve-style": "unbundled-bezier",
             label: "data(name)"
           }
         }
@@ -167,7 +168,7 @@ export default {
       layout: {
         name: "breadthfirst",
 
-        fit: false, // whether to fit the viewport to the graph
+        fit: true, // whether to fit the viewport to the graph
         directed: true, // whether the tree is directed downwards (or edges can point in any direction if false)
         padding: 30, // padding on fit
         circle: false, // put depths in concentric circles if true, put depths top down if false
@@ -234,7 +235,7 @@ export default {
         style: this.style,
         layout: this.layout,
         zoom: 1,
-        minZoom: 0.8,
+        minZoom: 0.5,
         maxZoom: 1.5
       });
     }
@@ -263,13 +264,6 @@ export default {
   },
   mounted: function() {
     setupTheme();
-
-    // this.cy.elements.map(node => {
-    //   console.log(node);
-    //   if (node.priority === 1) {
-    //     node.addClass("bg-success");
-    //   }
-    // });
   },
   methods: {
     // refactor to setAction()

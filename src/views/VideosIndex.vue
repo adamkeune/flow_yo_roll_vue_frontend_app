@@ -39,7 +39,6 @@
             <div v-if="!video.technique">
               <button class="btn d-block mx-auto">
                 <router-link :to="`/techniques?url=${video.url}`">
-                  <!-- change this to reflect modal changes -->
                   Add this technique
                 </router-link>
               </button>

@@ -5,7 +5,6 @@ import Login from "./views/Login.vue";
 import Logout from "./views/Logout.vue";
 import Frontpage from "./views/Frontpage.vue";
 import TechniquesIndex from "./views/TechniquesIndex.vue";
-import TechniquesShow from "./views/TechniquesShow.vue";
 import VideosIndex from "./views/VideosIndex.vue";
 import FlowsIndex from "./views/FlowsIndex.vue";
 import FlowsShow from "./views/FlowsShow.vue";
@@ -49,11 +48,6 @@ export default new Router({
       path: "/techniques",
       name: "techniques",
       component: TechniquesIndex
-    },
-    {
-      path: "/techniques/:id",
-      name: "techniques-show",
-      component: TechniquesShow
     },
     {
       path: "/videos",
