@@ -62,7 +62,7 @@
       </aside>
       <main
         id="active-box"
-        class="flex-row-8 flex-fill mx-3 my-3 text-center h-95 w-70 bg-grey"
+        class="flex-row-8 flex-fill mx-3 my-3 text-center h-95 w-70 bg-grey overflow-auto"
       >
         <h1>
           {{ active.name }}

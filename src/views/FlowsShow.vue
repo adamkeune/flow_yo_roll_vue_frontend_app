@@ -147,7 +147,6 @@ export default {
             width: "120",
             height: "60",
             "background-color": "#e67e22",
-            "background-blacken": 0.0,
             label: "data(name)",
             "text-valign": "center"
           }
@@ -197,7 +196,6 @@ export default {
     elements() {
       return this.flow_techniques.map(tech => {
         if (tech.type.id === 1) {
-          console.log(tech);
           return {
             data: {
               id: tech.id,
@@ -207,7 +205,6 @@ export default {
             classes: [] // set CSS classes
           };
         } else {
-          console.log(tech);
           if (tech.success === true) {
             return {
               data: {
@@ -240,15 +237,6 @@ export default {
         minZoom: 0.8,
         maxZoom: 1.5
       });
-      // let layout = cy.layout;
-      // cy.on("click", "node", function(evt) {
-      //   var node = evt.target;
-      //   console.log("tapped " + node.id());
-      // });
-      // cy.on("click", "edge", function(evt) {
-      //   var edge = evt.target;
-      //   console.log("tapped " + edge.id());
-      // });
     }
   },
   watch: {
@@ -260,24 +248,28 @@ export default {
     axios
       .get(`/api/flows/${this.$route.params.id}`)
       .then(response => {
-        console.log(response.data);
         this.flow = response.data;
       })
       .catch(error => (this.errors = error.response.data.errors));
     axios.get("/api/techniques").then(response => {
-      console.log(response.data);
       this.techniques = response.data;
     });
     axios
       .get(`/api/flow_techniques?flow_id=${this.$route.params.id}`)
       .then(response => {
-        console.log(response.data);
         this.flow_techniques = response.data;
         this.active = this.flow_techniques[0];
       });
   },
   mounted: function() {
     setupTheme();
+
+    // this.cy.elements.map(node => {
+    //   console.log(node);
+    //   if (node.priority === 1) {
+    //     node.addClass("bg-success");
+    //   }
+    // });
   },
   methods: {
     // refactor to setAction()
