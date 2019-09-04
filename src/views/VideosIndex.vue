@@ -9,7 +9,7 @@
       <div class="mt-3 float-left">
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-teal"
           data-toggle="modal"
           data-target="#new"
         >
@@ -30,7 +30,7 @@
         class="col-sm-4"
       >
         <div class="card w-90 text-center shadow rounded">
-          <h3 class="card-header text-white bg-primary">{{ video.title }}</h3>
+          <h3 class="card-header text-white bg-teal">{{ video.title }}</h3>
           <div class="card-body">
             <a class="btn d-block" :href="video.url" target="_blank">
               Link to video
@@ -89,13 +89,13 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
+            <button type="button" class="btn btn-teal" data-dismiss="modal">
               Cancel
             </button>
             <button
               v-on:click="createVideo()"
               type="button"
-              class="btn btn-primary"
+              class="btn btn-teal"
               data-dismiss="modal"
             >
               Save changes

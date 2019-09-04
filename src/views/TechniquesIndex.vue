@@ -9,7 +9,7 @@
       <div class="clearfix mt-3">
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-teal"
           data-toggle="modal"
           data-target="#new"
         >
@@ -19,19 +19,19 @@
         <div class="float-right">
           <button
             v-on:click="searchAttribute = 'name'"
-            class="btn btn-primary ml-2"
+            class="btn btn-teal ml-2"
           >
             Sort by name
           </button>
           <button
             v-on:click="searchAttribute = 'type'"
-            class="btn btn-primary ml-2"
+            class="btn btn-teal ml-2"
           >
             Sort by type
           </button>
           <button
             v-on:click="searchAttribute = 'priority'"
-            class="btn btn-primary ml-2"
+            class="btn btn-teal ml-2"
           >
             Sort by priority
           </button>
@@ -110,7 +110,7 @@
         <div class="mt-3">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-teal"
             data-toggle="modal"
             data-target="#edit"
           >
@@ -120,7 +120,7 @@
           <button
             v-on:click="deleteTechnique()"
             type="button"
-            class="btn btn-primary"
+            class="btn btn-teal"
           >
             Delete Technique
           </button>
@@ -194,13 +194,13 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
+            <button type="button" class="btn btn-teal" data-dismiss="modal">
               Cancel
             </button>
             <button
               v-on:click="createTechnique()"
               type="button"
-              class="btn btn-primary"
+              class="btn btn-teal"
               data-dismiss="modal"
             >
               Save changes
@@ -273,13 +273,13 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
+            <button type="button" class="btn btn-teal" data-dismiss="modal">
               Cancel
             </button>
             <button
               v-on:click="updateTechnique()"
               type="button"
-              class="btn btn-primary"
+              class="btn btn-teal"
               data-dismiss="modal"
             >
               Save changes

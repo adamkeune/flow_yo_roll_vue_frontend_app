@@ -6,14 +6,14 @@
       class="w-30 mx-auto text-center overflow-auto shadow"
     >
       <router-link :to="`/flows/${flow.id}`" class="list-group mx-auto">
-        <h3 class="list-group-item">{{ flow.title }}</h3>
+        <h3 class="list-group-item text-teal">{{ flow.title }}</h3>
       </router-link>
     </div>
 
     <div class="mt-3">
       <button
         type="button"
-        class="btn btn-primary d-block mx-auto"
+        class="btn btn-teal d-block mx-auto"
         data-toggle="modal"
         data-target="#new"
       >
@@ -56,13 +56,13 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
+            <button type="button" class="btn btn-teal" data-dismiss="modal">
               Cancel
             </button>
             <button
               v-on:click="addFlow()"
               type="button"
-              class="btn btn-primary"
+              class="btn btn-teal"
               data-dismiss="modal"
             >
               Save changes

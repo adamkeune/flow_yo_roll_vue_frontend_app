@@ -17,8 +17,9 @@
           class="px-3 py-5 py-lg-10 flex-valign"
           data-animate="fadeIn"
           data-animate-delay="0.2"
+          data-colour-scheme="orange"
         >
-          <h1 class="display-4 text-white text-slab mt-lg-5">
+          <h1 class="display-1 text-orange text-slab mt-lg-5">
             FlowYoRoll
           </h1>
           <h3 class="text-grey font-weight-normal text-slab">
@@ -29,7 +30,7 @@
             <div v-if="jwt">
               <router-link
                 to="/techniques"
-                class="btn btn-white d-block font-weight-bold text-primary py-lg-3 px-lg-5 w-30"
+                class="btn btn-white d-block font-weight-bold text-orange py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -38,7 +39,7 @@
               </router-link>
               <router-link
                 to="/videos"
-                class="btn btn-white d-block font-weight-bold text-primary py-lg-3 px-lg-5 w-30"
+                class="btn btn-white d-block font-weight-bold text-orange py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"
@@ -47,7 +48,7 @@
               </router-link>
               <router-link
                 to="/flows"
-                class="btn btn-white d-block font-weight-bold text-primary py-lg-3 px-lg-5 w-30"
+                class="btn btn-white d-block font-weight-bold text-orange py-lg-3 px-lg-5 w-30"
                 data-toggle="scroll-link"
                 data-animate="fadeIn"
                 data-animate-delay="0.45"

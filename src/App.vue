@@ -12,7 +12,7 @@
             <!--branding/logo -->
             <div class="header-brand">
               <router-link to="/" class="header-brand-text" title="Home">
-                <h1 class="h2">
+                <h1 class="h2 text-orange">
                   <span class="header-brand-text-alt">FlowYo</span>Roll<span class="header-brand-text-alt">.</span>
                 </h1>
               </router-link>
@@ -23,17 +23,17 @@
             <div class="header-block order-12">
               <ul class="nav">
                 <li class="nav-link" v-if="jwt"><router-link
-                to="/techniques" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Techniques</router-link></li>
+                to="/techniques" class="text-orange op-8" data-toggle="scroll-link" data-dismiss="overlay">Techniques</router-link></li>
                 <li class="nav-link" v-if="jwt"><router-link
-                to="/videos" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Videos</router-link></li>
+                to="/videos" class="text-orange op-8" data-toggle="scroll-link" data-dismiss="overlay">Videos</router-link></li>
                 <li class="nav-link" v-if="jwt"><router-link
-                to="/flows" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Flows</router-link></li>
+                to="/flows" class="text-orange op-8" data-toggle="scroll-link" data-dismiss="overlay">Flows</router-link></li>
                 <li class="nav-link" v-if="jwt"><router-link
-                to="/logout" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Logout</router-link></li>
+                to="/logout" class="header-slogan op-8" data-toggle="scroll-link" data-dismiss="overlay">Logout</router-link></li>
                 <li class="nav-link" v-if="!jwt"><router-link
-                to="/signup" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Signup</router-link></li>
+                to="/signup" class="header-slogan op-8" data-toggle="scroll-link" data-dismiss="overlay">Signup</router-link></li>
                 <li class="nav-link" v-if="!jwt"><router-link
-                to="/login" class="text-white op-8" data-toggle="scroll-link" data-dismiss="overlay">Login</router-link></li>
+                to="/login" class="header-slogan op-8" data-toggle="scroll-link" data-dismiss="overlay">Login</router-link></li>
               </ul>
             </div>
           </div>

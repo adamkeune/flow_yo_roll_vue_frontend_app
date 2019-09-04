@@ -1,32 +1,32 @@
 <template>
   <div class="signup">
-    <div class="container">
+    <div class="container w-30 mx-auto">
       <form v-on:submit.prevent="submit()">
-        <h1>Signup</h1>
+        <h1 class="text-white">Signup</h1>
         <ul>
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
         <div class="form-group">
-          <label>Name:</label>
+          <label class="text-white">Name:</label>
           <input type="text" class="form-control" v-model="name" />
         </div>
         <div class="form-group">
-          <label>Email:</label>
+          <label class="text-white">Email:</label>
           <input type="email" class="form-control" v-model="email" />
         </div>
         <div class="form-group">
-          <label>Password:</label>
+          <label class="text-white">Password:</label>
           <input type="password" class="form-control" v-model="password" />
         </div>
         <div class="form-group">
-          <label>Password confirmation:</label>
+          <label class="text-white">Password confirmation:</label>
           <input
             type="password"
             class="form-control"
             v-model="passwordConfirmation"
           />
         </div>
-        <input type="submit" class="btn btn-primary" value="Submit" />
+        <input type="submit" class="btn btn-teal" value="Submit" />
       </form>
     </div>
   </div>

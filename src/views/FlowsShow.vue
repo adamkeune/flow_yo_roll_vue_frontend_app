@@ -6,16 +6,16 @@
         <p>{{ flow.description }}</p>
       </div>
       <div class="flex-row-8">
-        <button class="btn btn-primary" v-on:click="addPosition()">
+        <button class="btn btn-teal" v-on:click="addPosition()">
           Add Position to Flow
         </button>
-        <button class="btn btn-primary" v-on:click="addTransition()">
+        <button class="btn btn-teal" v-on:click="addTransition()">
           Add Transition/Submission to Flow
         </button>
-        <button class="btn btn-primary" v-on:click="deleteTechnique()">
+        <button class="btn btn-teal" v-on:click="deleteTechnique()">
           Remove Technique from Flow
         </button>
-        <button class="btn btn-primary" v-on:click="deleteFlow()">
+        <button class="btn btn-teal" v-on:click="deleteFlow()">
           Delete this Flow
         </button>
         <div v-if="edit" class="mx-auto text-center text-white">
@@ -144,8 +144,8 @@ export default {
             shape: "diamond",
             width: "120",
             height: "60",
-            "background-color": "#900",
-            "background-blacken": -0.3,
+            "background-color": "#e67e22",
+            "background-blacken": 0.0,
             label: "data(name)",
             "text-valign": "center"
           }
