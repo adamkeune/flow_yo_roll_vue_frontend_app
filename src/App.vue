@@ -11,13 +11,13 @@
           <div class="header-inner container">
             <!--branding/logo -->
             <div class="header-brand">
-              <router-link to="/" class="header-brand-text" title="Home">
+              <router-link to="/" class="" title="Home">
                 <h1 class="h2 text-orange">
-                  <span class="header-brand-text-alt">FlowYo</span>Roll<span class="header-brand-text-alt">.</span>
+                  <span class="text-teal">FlowYo</span>Roll
                 </h1>
               </router-link>
               <div class="header-divider d-none d-lg-block"></div>
-              <div class="header-slogan d-none d-lg-block">Visualize Your Game</div>
+              <div id="slogan" class="header-slogan d-none d-lg-block">Visualize Your Game</div>
             </div>
             <!-- other header content -->
             <div class="header-block order-12">
@@ -43,6 +43,7 @@
     <br>
     <br>
     <br>
+    <br>
 
     <router-view class="main-view" v-on:changeJwt="setJwt()" />
     
@@ -52,6 +53,10 @@
 <style>
 .header-brand {
   font-family: "Kalam", cursive;
+}
+
+#slogan {
+  font-family: "Roboto Slab";
 }
 </style>
 

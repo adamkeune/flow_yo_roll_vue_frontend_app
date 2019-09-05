@@ -18,8 +18,9 @@
           data-animate="fadeIn"
           data-animate-delay="0.2"
         >
-          <h1 id="headliner" class="display-1 text-orange mt-lg-5">
-            FlowYoRoll
+          <h1 id="headliner" class="display-1 text-teal mt-lg-5">
+            FlowYo
+            <span class="text-orange ml-5-neg pl-0">Roll</span>
           </h1>
           <h3 class="text-grey font-weight-normal text-slab">
             Visualize Your Game
